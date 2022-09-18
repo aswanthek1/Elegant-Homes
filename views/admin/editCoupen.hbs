@@ -1,0 +1,78 @@
+
+
+
+
+<section>
+    <div class="container-fluid width-100% height-100%" style="background-color:">
+        <div class="row d-flex justify-content-center  ">
+            <div class="col-md-6 mt-5">
+                <h2 class="text-center"
+                    style="color: brown; font-family: Arial, Helvetica, sans-serif; font-weight: 1800;">EDIT
+                    COUPEN</h2>
+                <form action="/admin/editCoupens/{{editCoupen._id}}" method="post"  id="editcoupen">
+
+
+                    <input type="text"  name="coupenName" value="{{editCoupen.coupenName}}"
+                        placeholder="Coupen Name" id="coupenname" class="form-control mt-5"
+                        style="border:2px solid ;border-radius: 8px;">
+
+
+                    <input type="text"  placeholder="Coupen Code"
+                        value="{{editCoupen.coupenCode}}" name="coupenCode" id="coupencode" class="form-control mt-5 numinput"
+                        style="border:2px solid ;border-radius: 8px;">
+
+
+                    <input type="text" placeholder="Discount Percentage" id="coupendiscount" name="coupenDiscount"
+                      value="{{editCoupen.coupenDiscount}}"  class="form-control mt-5" style="border:2px solid ;border-radius: 8px;">
+
+
+                    <div class="d-flex justify-content-around" style="margin-bottom:22px ;">
+
+                        <a class="btn btn-danger mt-5" href="/admin/coupens">Go Back</a>
+
+                        <button type="submit" role="button" class="btn btn-success mt-5">Submit</button>
+
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+</section> 
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>  
+<script>  
+$(document).ready (function () {  
+ $('#editcoupen').submit (function (e) {  
+      
+    var coupenname = $('#coupenname').val();  
+    var coupencode = $('#coupencode').val();  
+    var coupendiscount = $('#coupendiscount').val();   
+     
+  $(".error").remove();  
+if (coupenname.length < 1) {  
+  e.preventDefault();
+      $('#coupenname').after('<span class="error" >This field is required</span>');  
+    }  
+if (coupencode.length < 1) { 
+  e.preventDefault(); 
+      $('#coupencode').after('<span class="error">This field is required</span>');  
+    }     
+    if (coupendiscount.length < 1) { 
+  e.preventDefault(); 
+      $('#coupendiscount').after('<span class="error">This field is required</span>');  
+    } 
+  });  
+    
+});  
+</script> 
+
+<style>
+  .error{
+    color: red;
+  }
+</style>

@@ -1,0 +1,173 @@
+<style>
+    .row {
+        font-size: 12px;
+    }
+
+    td {
+        font-weight: 500;
+        color: rgb(63, 5, 5);
+
+    }
+
+    thead {}
+
+    table {
+        border: 2px solid;
+    }
+</style>
+
+
+
+<div class="row container-fluid">
+    <div class="col-12">
+        <div class="mt-5">
+            <table id="example" class="table table-striped " style="width:100%">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>E-mail</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>TotalPrice</th>
+                        <th>Payment Method</th>
+                        <th>Payment Status</th>
+
+                        <th>Delivery Status</th>
+                        <th>Change Status</th>
+                        <th>Cancel Order</th>
+
+                        <th>Date Of Order</th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+
+                    {{#each orderDetails}}
+
+                    <tr>
+                        <td> {{inc1 @index}} </td>
+                        <td> {{this.userId.name}}</td>
+                        <td> {{this.userId.email}}</td>
+                        <td> {{#each this.Orderitems}}{{this.product.productname}}<br><br> {{/each}}</td>
+                        <td> {{#each this.Orderitems}}{{this.quantity}}<br> <br> {{/each}}</td>
+                        <td>{{this.totalPrice}}</td>
+                        <td>{{this.paymentDetails}}</td>
+                        <td>{{this.deliveryStatus}}</td>
+
+                        <td>{{this.productStatus}}</td>
+                        {{#if (eq this.productStatus "Pending")}}
+                        {{!-- <td><a class="btn" href="/admin/productShip/{{this._id}}"><i class="fa fa-truck" aria-hidden="true" style="font-size:24px"></i></a></td> --}}
+                        <td><button  onclick="productShip('{{this._id}}')" style="border: 0ch;background-color: transparent;"><i class="fa fa-truck" aria-hidden="true" style="font-size:24px"></i></button></td>
+                        {{/if}}
+                        {{#if (eq this.productStatus "shipped")}}
+                        {{!-- <td><a class="btn " href="/admin/productDeliver/{{this._id}}"><i class="fa fa-shopping-bag" aria-hidden="true" style="font-size:24px"></i></a></td> --}}
+                       <td><button   onclick="productDeliver('{{this._id}}')" style="border: 0ch;background-color: transparent;"><i class="fa fa-shopping-bag" aria-hidden="true" style="font-size:24px"></i></button></td>
+                        {{/if}}
+
+                        {{#if (eq this.productStatus "deliverd")}}
+                        <td><i class="fa fa-check " style="font-size:24px;color: green;"></i></td>
+                        {{/if}}
+
+                        {{#if (eq this.productStatus "Cancelled")}}
+                        <td><i class="fa fa-ban" aria-hidden="true"  style="font-size:24px"></td>
+                        {{/if}}
+
+                        {{#if (or (eq this.productStatus "Pending")(eq this.productStatus "shipped"))}}
+                        {{!-- <td><a class="btn btn-danger" href="/admin/cancelOrder/{{this._id}}" style="font-size: 10px;">Cancel</a> --}}
+                        <td><button class="btn btn-danger" onclick="cancelOrder('{{this._id}}')" style="font-size: 10px;">Cancel</button></td>
+                        </td>
+                        {{/if}}
+
+                        {{#if (eq this.productStatus "deliverd")}}
+                        <td style="color: green;">Delivered</td>
+                        {{/if}}
+
+                        {{#if (eq this.productStatus "Cancelled")}}
+                        <td><i class="fa fa-ban" aria-hidden="true"  style="font-size:24px"></i></td>
+                        {{/if}}
+
+                        <td>{{format this.createdAt}}</td>
+                    </tr>
+
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                scrollX: '200px',
+                scrollCollapse: true,
+                paging: true,
+                "ordering": false,
+            });
+        });
+    </script>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+     async  function productShip(id){       
+      axios({
+        method:'post',
+        url:'/admin/productShip/'+id
+      }).then((response)=>{
+        location.reload()
+      }).catch((response)=>{
+        console.log(response)
+      })
+    }
+
+    async function productDeliver(id){
+       axios({
+        method:'post',
+        url:'/admin/productDeliver/'+id
+       }).then((response)=>{
+         location.reload()
+       }).catch((response)=>{
+        console.log(response)
+       })
+    }
+
+ 
+    async function cancel(id) {
+
+        axios({
+            method: 'post',
+            url: '/cancelOrder/' + id
+        }).then((response) => {
+
+
+            location.reload()
+
+        }).catch((response) => {
+            console.log(response)
+        })
+    }
+
+    function cancelOrder(id) {
+        swal({
+            title: "Are you sure?",
+            
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    this.cancel(id)
+                    swal("Poof! Order cancelled successfully!", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("Order is safe!");
+                }
+            });
+    }
+
+</script>

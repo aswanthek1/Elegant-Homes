@@ -1,0 +1,191 @@
+
+
+
+<style>
+.numinput::-webkit-outer-spin-button,
+.numinput::-webkit-inner-spin-button {
+-webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.numinput[type=number] {
+-moz-appearance: textfield;
+}
+</style>
+
+
+<section>
+        <div class="container-fluid width-100% height-100%" style="background-color: #74CDE9;">
+              <div class="row d-flex justify-content-center  ">
+                <div class="col-md-6 mt-5">
+                    <h2 class="text-center" style="color: brown; font-family: Arial, Helvetica, sans-serif; font-weight: 1800;">ADD PRODUCDT</h2>
+                    <form action="/admin/addproduct" method="post" enctype="multipart/form-data" id="productform">
+                        
+                        <input type="text" name="productname"  placeholder="Name" id="prodcutname" class="form-control mt-5 " style="border:2px solid ;border-radius: 8px;">
+
+                       
+                        <input type="number" placeholder="Price" name="price"   id="price" class="form-control mt-5 numinput" style="border:2px solid ;border-radius: 8px;">
+
+                       
+                        <input type="number" placeholder="Discount Price"  id="discountprice" name="discountprice" class="form-control mt-5 numinput" style="border:2px solid ;border-radius: 8px;">
+                    
+                       
+                      
+                        <select class="form-select mt-5" name="catname" style="border:2px solid ;border-radius: 8px;" aria-placeholder="">
+                          
+                           
+
+                           {{#each allCategory}}
+
+                          <option value="{{this._id}}">{{this.categoryname}}</option>
+                          {{/each}}
+
+                        </select>
+                       
+                       
+                        <input type="file" placeholder="Image" id="image" name="image"  multiple class="form-control mt-5" style="border:2px solid ;border-radius: 8px;">
+                   
+
+                       <textarea  type="text" placeholder="Description" id="description" name="description"  class="form-control mt-5" style="border:2px solid ;border-radius: 8px;"></textarea> 
+
+
+
+                        <input type="number" placeholder="Stock" id="stock" name="stock"  multiple class="form-control mt-5 numinput" style="border:2px solid ;border-radius: 8px;">
+
+                   
+                        <div class="d-flex justify-content-around" style="margin-bottom:22px ;">
+                       
+                        <a class="btn btn-danger mt-5" href="/admin/productdetails">Go Back</a>
+                       
+                        <button  type="submit" role="button" class="btn btn-success mt-5">submit</button>
+                     
+                       </div> 
+                        
+                    
+                    </form>
+                </div>
+              </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+   
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>  
+<script>  
+$(document).ready (function () {  
+ $('#productform').submit (function (e) {  
+  
+    var prodcutname = $('#prodcutname').val();  
+    var price = $('#price').val();  
+    var discountprice = $('#discountprice').val(); 
+    var description = $('#description').val(); 
+    var image = $('#image').val();  
+    var stock = $('#stock').val();  
+     
+  $(".error").remove();  
+if (prodcutname.length < 1) {  
+    e.preventDefault();  
+      $('#prodcutname').after('<span class="error" >This field is required</span>');  
+    }  
+if (price.length < 1) {  
+    e.preventDefault();  
+      $('#price').after('<span class="error">This field is required</span>');  
+    }  
+    if (description.length < 1) { 
+        e.preventDefault();   
+      $('#description').after('<span class="error">This field is required</span>');  
+    }  
+    if(image.length < 1){
+        e.preventDefault();  
+      $('#image').after('<span class="error">This field is required</span>');  
+    }
+    
+    if (stock.length < 2) {  
+        e.preventDefault();  
+      $('#stock').after('<span class="error">Atleast 2 stock is needed</span>');  
+    }  
+  });  
+    
+});  
+</script>  
+
+<style>
+  .error{
+    color: red;
+  }
+</style>
+
+
+
+ {{!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+  <script>
+  $(document).ready(function(){
+    $("#productform").validate({
+        rules:{
+            prodcutname:{
+                required:true,
+                minlength:6,
+                maxlength:15
+            },
+            price:{
+                required:true,
+                email:true
+                
+                
+            },
+            discountprice:{
+                required:true,
+                number:true
+               
+            },
+            description:{
+                required:true,
+                minlength:4,
+                maxlength:8
+                
+            },
+            image:{
+                required:true,
+                equalTo:'#password'
+
+            }
+        },
+        messages:{
+          prodcutname:{
+          
+          required:"You should enter your full name",
+          minlength:"enter minimum 6 charachters",
+          maxlength:"Maximum limit of characters is 15"
+          
+          
+          },
+         price:{
+            required:"This field is mandatory"
+            
+            
+         },
+         discountprice:{
+            required:"You should enter a valid number"
+         },
+         description:{
+            required:"Please enter the password",
+            minlength:"minimum four charachters is needed",
+            maxlength:"maximum eight charachters is possible"
+        },
+        image:{
+            required:"this field is required",
+            equalTo:"please enter the same password"
+        }
+        }
+
+    })
+  })
+
+  
+</script> --}}
+

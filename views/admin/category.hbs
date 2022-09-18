@@ -1,0 +1,153 @@
+{{#if categoryexist}}
+
+<div class="d-flex justify-content-center container mt-3" style="background-color: rgb(218, 97, 97); color: white;">
+  
+  <h3>category already exist</h3>
+  
+</div>
+{{/if}} 
+
+<div class="d-flex justify-content-end container mt-4">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add Category
+  </button>
+</div>
+<div class="container-fluid" style="width:70% ;">
+
+
+
+  <div class="row mt-5">
+    <div class="col-md-10 mx-auto border shadow-lg">
+      <table class="table table-striped" id="usertable">
+        <thead>
+          <tr>
+            <th scope="col">Category Name</th>
+            <th scope="col">Image</th>
+            <th scope="col">Change Status</th>
+
+           
+          </tr>
+        </thead>
+        <tbody>
+          {{#each category}}
+          <tr>
+            <td>{{this.categoryname}}</td>
+            <td><img src="/productimages/{{this.image.[0]}}" alt="" width="60em"></td>
+            <td>
+              <a class="btn btn-info" role="button" href="/admin/editcategory/{{this._id}}">Edit</a>
+              <a class="btn btn-danger" href="/admin/delete-category/{{this._id}}"
+                onclick="return confirm('Are you sure you want to delete category {{this.categoryname}} ?')">Delete</a>
+
+              {{!-- <a type="button" role="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#editexampleModal">
+                Add Category
+              </a> --}}
+
+
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  {{!-- /////////////////////////////add category modal/////////////////////////////////////// --}}
+
+  <!-- Button trigger modal -->
+  {{!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button> --}}
+
+  <!-- Modal -->
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">ADD CATEGORY</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <section>
+            <div>
+              <div class="">
+
+                <div class="row row d-flex justify-content-center">
+                  <div class="col-md-6 ">
+                    {{!-- <h4 class="text-center " style="color: brown; font-family: Arial, Helvetica, sans-serif;">
+                      <b>ADD CATEGORY</b>
+                    </h4> --}}
+                    <form action="/admin/addcategory" method="post" enctype="multipart/form-data" id="addcategory"
+                      style=" margin-top: 14%;">
+
+                      <input type="text" name="categoryname" id="categoryname" placeholder="Category Name"
+                        class="form-control" style="border-radius: 8px; margin-top:2%;">
+
+
+                      {{!-- <label for="">Category</label>
+                      <input type="text" name="category" class="form-control"> --}}
+
+                      {{!-- <label for="">Price</label>
+                      <input type="text" name="price" class="form-control"> --}}
+
+                      <label for="" class="mt-4">Images</label>
+                      <input type="file" name="image" id="image" multiple class="form-control mt-2">
+
+
+                      {{!-- <div class="d-flex justify-content-around">
+                        <a class="btn btn-primary mt-5" href="/admin/category">Go Back</a>
+                        <button type="submit" role="button" class="btn btn-success mt-5">Submit</button>
+
+                      </div> --}}
+                      <div class="modal-footer mt-3 pe-5">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </section>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#addcategory').submit(function (e) {
+
+        var categoryname = $('#categoryname').val();
+        var image = $('#image').val();
+
+
+        $(".error").remove();
+        if (categoryname.length < 1) {
+          e.preventDefault();
+          $('#categoryname').after('<span class="error" >This field is required</span>');
+        }
+        //if (image.length < 1) {  
+        // e.preventDefault(); 
+        //$('#image').after('<span class="error">This field is required</span>');  
+        // }  
+
+      });
+
+    });  
+  </script>
+
+  <style>
+    .error {
+      color: red;
+    }
+  </style>

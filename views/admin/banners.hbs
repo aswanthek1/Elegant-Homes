@@ -1,0 +1,55 @@
+<div class="d-flex justify-content-end container">
+ <a class="btn btn-primary mt-4" href="/admin/addbanner">Add Banners</a>
+</div>
+<div class="container-fluid" style="width:70% ;">
+  {{!-- <nav class="navbar navbar-light bg-light justify-content-between">
+
+  <a class="navbar-brand">admin</a>
+  <a class="btn btn-primary" href="/adduser">Add New User</a>
+  <a class="btn btn-outline-success my-2 my-sm-0" href="/adminlogout">Logout</a>
+
+</nav> --}}
+
+
+<div class="row mt-5">
+ <div class="col-md-10 mx-auto border shadow-lg">
+  <table class="table table-striped" id="bannertable">
+  <thead>
+    <tr>
+      <th scope="col">Banner Name</th>
+      <th scope="col">Heading</th>
+      <th scope="col">Image</th>
+      <th scope="col">Change Status</th>
+      {{!-- <th scope="col">last name</th>
+      
+      <th scope="col">place</th>
+      <th scope="col">pincode</th>
+      <th scope="col">Update / Delete</th> --}}
+    </tr>
+  </thead>
+  <tbody>
+    {{#each bannerResponse}}
+    <tr>
+      <td>{{this.product}}</td>
+      <td>{{this.heading}}</td>
+      <td> <img src="/productimages/{{this.image.[0]}}" alt="" width="50em"></td>
+
+      <td>
+        <a class="btn btn-info" role="button" href="/admin/edit-banners/{{this._id}}">Edit</a>
+        <a class="btn btn-danger" href="/admin/delete-banners/{{this._id}}" onclick="return confirm('Are you sure you want to delete banner {{this.product}} ?')">Delete</a>
+        </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+ </div>
+</div>
+
+
+
+<script>
+  $(document).ready( function () {
+    $('#bannertable').DataTable();
+} );
+</script>
+</div>

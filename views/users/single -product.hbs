@@ -1,0 +1,187 @@
+<style>
+    .input::-webkit-outer-spin-button,
+    .input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    .input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
+
+
+
+
+<p>{{singleproduct}}</p>
+<div class="container mt-5 pt-5">
+    <div class="card" style="background-color: #d9e1e1;">
+        <div class="row g-0">
+            <div class="col-md-6 border-end">
+
+                <div class="d-flex flex-column justify-content-center">
+                    <div class="main_image">
+                        <img src="/productimages/{{singleproduct.image.[0]}}" id="main_product_image" width="350">
+                    </div>
+                    <div class="thumbnail_images">
+                        <ul id="thumbnail">
+                            <li><img onclick="changeImage(this)" src="/productimages/{{singleproduct.image.[0]}}"
+                                    width="70"></li>
+                            <li><img onclick="changeImage(this)" src="/productimages/{{singleproduct.image.[0]}}"
+                                    width="70"></li>
+                            <li><img onclick="changeImage(this)" src="/productimages/{{singleproduct.image.[0]}}"
+                                    width="70"></li>
+                            <li><img onclick="changeImage(this)" src="/productimages/{{singleproduct.image.[0]}}"
+                                    width="70"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mt-5">
+                <div class="p-3 right-side">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3>{{singleproduct.productname}}</h3> <span class="heart"><i class='bx bx-heart'></i></span>
+                    </div>
+                    {{!-- <div class="mt-2 pr-3 content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua</p>
+                    </div> --}}
+                    <h3 class="mt-4">Price : ₹ {{singleproduct.price}}</h3>
+
+
+                    <div class="mt-2 pr-3 content">
+                        <h5 class="pt-3">Description</h5>
+                        <p>{{singleproduct.description}}</p>
+                    </div>
+
+
+
+                    <div class="d-flex mt-5">
+
+
+                        {{!-- <div class="input-group-btn">
+                            {{#if (gt singleproduct.quantity 1)}}
+                            <button class="btn btn-sm btn-primary btn-minus">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            {{/if}}
+                        </div> --}}
+
+
+                        {{!-- <a onclick="this.parentNode.querySelector('input[type=number]').stepDown()" --}}
+                            {{!-- class="btn btn-link px-2" role="button"><i class="fas fa-minus"></i></a> --}}
+
+
+                        {{!-- onclick="this.parentNode.querySelector('input[type=number]').stepDown()" --}}
+
+                        {{!-- <input id="input" name="quantity" value="" disabled min="0" type="number" class=" input"
+                            style="width: 40px; height: 30px;" /> --}}
+
+                        {{!-- <div class="input-group-btn">
+                            <button class="btn btn-sm btn-primary btn-plus">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div> --}}
+
+
+                        {{!-- <a onclick="this.parentNode.querySelector('input[type=number]').stepUp()" role="button"
+                            class="btn btn-link px-2 "><i class="fas fa-plus"></i></a> --}}
+                    </div>
+                    {{!-- onclick="this.parentNode.querySelector('input[type=number]').stepUp()" --}}
+
+                    <div class="ratings d-flex flex-row align-items-center">
+                        <div class="d-flex flex-row"> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i
+                                class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bx-star'></i> </div>
+                        
+                    </div>
+                 
+                    <div class="d-flex  mt-5">
+                        {{!-- <div class=" d-flex flex-row mt-5 gap-3">
+                            <a href="/checkout"  class="btn btn-outline-dark">Buy Now
+                            </a>
+                        </div> --}}
+                        <div>
+                            {{!-- <button onclick="addToCart('{{this._id}}')" class="add_cart"
+                                style="border-style: none;">+ add to cart</button> --}}
+                            <button onclick="addToCart('{{singleproduct._id}}')" class="btn btn-outline-dark mt-5">Add
+                                to Cart</button>
+
+
+                            {{!-- <a class="btn btn-outline-dark mt-5" href="/addToCart/{{singleproduct._id}}">Add to
+                                Cart</a> --}}
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function changeImage(element) {
+
+        var main_prodcut_image = document.getElementById('main_product_image');
+        main_prodcut_image.src = element.src;
+
+
+    }
+</script>
+
+
+
+
+<script>
+    const addToCart = async (id) => {
+        const res = await axios.post(`/addToCart/${id}`, {}).then((e) => {
+            swal("Good job!", "Item added to cart!", "success")
+        })
+    }
+
+</script>
+
+<script>
+    const incQty = async (id) => {
+        try {
+
+
+            const res = await axios.post(`/incQty/${id}`, {}).then((e) => {
+                e.data.response
+                document.getElementById(id).value = e.data.response.quantity
+
+                window.location.reload()
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+</script>
+
+
+
+<script>
+    const decQty = async (id) => {
+        try {
+
+            const res = await axios.post(`/decQty/${id}`, {}).then((e) => {
+                e.data.response
+                document.getElementById(id).value = e.data.response.quantity
+
+                window.location.reload()
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+</script>
+
+
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

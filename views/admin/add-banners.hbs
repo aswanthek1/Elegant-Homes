@@ -1,0 +1,103 @@
+<section>
+        <div class="container-fluid width-100% " style="background-color: #74CDE9;height: 100vh;">
+              <div class="row d-flex justify-content-center  ">
+                <div class="col-md-6 mt-5">
+                    <h2 class="text-center" style="color: brown; font-family: Arial, Helvetica, sans-serif; font-weight: 1800;">ADD BANNER</h2>
+                    <form action="/admin/addbanner" method="post" enctype="multipart/form-data" id="addbanner">
+                        
+                        
+                        
+                        <select class="form-select mt-5" aria-placeholder="" name="prodname" style="border:2px solid ;border-radius: 8px;">
+                          
+                           
+
+                           {{#each prodList}}
+
+                          <option value="{{this.productname}}">{{this.productname}}</option>
+                          {{/each}}
+
+                        </select>
+                        
+                        
+                        
+                        
+                        
+                        <input type="text"   name="heading" placeholder="Heading" id="heading" class="form-control mt-5" style="border:2px solid ;border-radius: 8px;">
+
+                       
+                        <input type="description" placeholder="Price"  name="price"  id="price" class="form-control mt-5" style="border:2px solid ;border-radius: 8px;">
+
+                       
+                        {{!-- <input type="number" placeholder="Discount Price" id="discountprice" name="discountprice" class="form-control mt-5" style="border:2px solid ;border-radius: 8px;"> --}}
+                    
+                       
+                      
+                        {{!-- <select class="form-select mt-5" name="catname" style="border:2px solid ;border-radius: 8px;">
+                          
+                           <option>Select Category</option>
+
+                           {{#each allProducts}}
+
+                          <option value="{{this._id}}">{{this.product}}</option>
+                          {{/each}}
+
+                        </select> --}}
+                       
+                       
+                        <input type="file" placeholder="Image"  id="image" name="image" multiple class="form-control mt-5" style="border:2px solid ;border-radius: 8px;">
+                   
+                        {{!-- <input type="number" placeholder="Stock" id="stock" name="stock" multiple class="form-control mt-5" style="border:2px solid ;border-radius: 8px;"> --}}
+
+                   
+                        <div class="d-flex justify-content-around" style="margin-bottom:22px ;">
+                       
+                        <a class="btn btn-danger mt-5" href="/admin/banners">Go Back</a>
+                       
+                        <button  type="submit" role="button" class="btn btn-success mt-5">Submit</button>
+                     
+                       </div> 
+                        
+                    
+                    </form>
+                </div>
+              </div>
+        </div>
+    </div>
+</section>
+
+
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>  
+<script>  
+$(document).ready (function () {  
+ $('#addbanner').submit (function (e) {  
+     
+    var heading = $('#heading').val();  
+    var price = $('#price').val();   
+    var image = $('#image').val();  
+   
+     
+  $(".error").remove();  
+if (heading.length < 1) { 
+   e.preventDefault(); 
+      $('#heading').after('<span class="error" >This field is required</span>');  
+    }  
+if (price.length < 1) {  
+   e.preventDefault();
+      $('#price').after('<span class="error">This field is required</span>');  
+    }  
+   
+    if(image.length < 1){
+       e.preventDefault();
+      $('#image').after('<span class="error">This field is required</span>');  
+    }
+  });  
+    
+});  
+</script> 
+
+<style>
+  .error{
+    color: red;
+  }
+</style>

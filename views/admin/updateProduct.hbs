@@ -1,0 +1,122 @@
+<section>
+    <div class="container-fluid width-100% height-100%" style="background-color: #74CDE9;">
+        <div class="row d-flex justify-content-center  ">
+            <div class="col-md-6 mt-5">
+                <h2 class="text-center"
+                    style="color: brown; font-family: Arial, Helvetica, sans-serif; font-weight: 1800;">EDIT PRODUCDT
+                </h2>
+                <form action="/admin/editproduct/{{productContent._id}}" id="editproductform" method="post" enctype="multipart/form-data" >     
+                                                                          {{!-- enctype="multipart/form-data" --}}
+
+                    <input type="text"  value="{{productContent.productname}}" name="productname" placeholder="Name"
+                        id="prodcutname" class="form-control mt-5" style="border:2px solid ;border-radius: 8px;">
+
+
+                    <input type="number" value="{{productContent.price}}" placeholder="Price" name="price" id="price"
+                        class="form-control mt-5" style="border:2px solid ;border-radius: 8px;">
+
+
+                    <input type="number" value="{{productContent.discountprice}}" placeholder="Discount Price"
+                        id="discountprice" name="discountprice" class="form-control mt-5 numberinp"
+                        style="border:2px solid ;border-radius: 8px;">
+
+
+
+                    <select class="form-select mt-5" aria-placeholder="Select Category" name="catname" style="border:2px solid ;border-radius: 8px;">
+
+                        
+
+                        {{#each allCategory}}
+
+                        <option value="{{this._id}}">{{this.categoryname}}</option>
+                        {{/each}}
+
+                    </select>
+
+                   <img src="/productimages/{{productContent.image.[0]}}" alt="" width="100em" class="mt-5">
+                    <input type="file" placeholder="Image" id="image" value="{{productContent.image}}"
+                        name="image" multiple class="form-control mt-5" style="border:2px solid ;border-radius: 8px;">
+                   
+
+
+                  <textarea  type="text" placeholder="Description" id="description" name="description" class="form-control mt-5" style="border:2px solid ;border-radius: 8px;">{{productContent.description}}</textarea>                                                                                                                                                                                                                                                                                                                                                                     
+
+
+                    <input type="number"  placeholder="Stock" id="stock" value="{{productContent.stock}}" name="stock"
+                        multiple class="form-control mt-5 numberinp" style="border:2px solid ;border-radius: 8px;">
+
+
+                    <div class="d-flex justify-content-around" style="margin-bottom:22px ;">
+
+                        <a class="btn btn-danger mt-5" href="/admin/productdetails">Go Back</a>
+
+                        <button type="submit" role="button" class="btn btn-success mt-5">submit</button>
+
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+
+<style>
+.numinput::-webkit-outer-spin-button,
+.numinput::-webkit-inner-spin-button {
+-webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.numinput[type=number] {
+-moz-appearance: textfield;
+}
+</style>
+
+
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>  
+<script>  
+$(document).ready (function () {  
+ $('#editproductform').submit (function (e) {  
+ 
+    var prodcutname = $('#prodcutname').val();  
+    var price = $('#price').val();  
+    var discountprice = $('#discountprice').val(); 
+    var description = $('#description').val(); 
+    var image = $('#image').val();  
+    var stock = $('#stock').val();
+
+     
+  $(".error").remove();  
+if (prodcutname.length < 1) { 
+   e.preventDefault();   
+      $('#prodcutname').after('<span class="error" >This field is required</span>');  
+    }  
+if (price.length < 1) {  
+   e.preventDefault();  
+      $('#price').after('<span class="error">This field is required</span>');  
+    }  
+    if (description.length < 1) {  
+       e.preventDefault();  
+      $('#description').after('<span class="error">This field is required</span>');  
+    }  
+    if(image.length < 1){
+       e.preventDefault();  
+      $('#image').after('<span class="error">This field is required</span>');  
+    }
+    
+    if (stock.length < 2) { 
+       e.preventDefault();   
+      $('#stock').after('<span class="error">Atleast 2 stock is needed</span>');  
+    }  
+  });  
+    
+});  
+</script> 
+
+
+

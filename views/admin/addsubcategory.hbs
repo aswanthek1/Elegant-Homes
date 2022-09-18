@@ -1,0 +1,41 @@
+<section >
+        <div class="container">
+        
+              <div class="row">
+                <div class="col-md-6">
+                    <h2 class="text-center">Add Sub Category</h2>
+                    <form action="/admin/addsubcategory" method="post">
+                        <label for="">Category Name</label>
+                        <input type="text" name="subcategoryname" class="form-control">
+                        {{!-- {{#if categoryexist}}
+                        <p>category exist</p>
+
+
+                        {{/if}} --}}
+
+                         {{!-- <label for="">Category</label>
+                        <input type="text" name="category" class="form-control"> --}}
+
+                        {{!-- <label for="">Price</label>
+                        <input type="text" name="price" class="form-control"> --}}
+                    
+                        {{!-- <label for="">Images</label>
+                        <input type="file" name="image" class="form-control"> --}}
+
+                        <select name="categoryname" class="form-select mt-3" aria-label="Default Select example" id="">
+                        <option value="" selected="">Open this selected menu</option>
+                         {{#each subcategory}}
+                         <option value="{{this._id}}">{{this.categoryname}}</option>                      
+                       {{/each}}
+                       </select>
+                        <a class="btn btn-primary mt-4" href="/admin/category">Go Back</a>
+                        <button  type="submit" role="button" class="btn btn-success mt-4">submit</button>
+                        
+                        
+                    
+                    </form>
+                </div>
+              </div>
+        </div>
+    </div>
+</section>

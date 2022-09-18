@@ -1,0 +1,352 @@
+  {{#if cartempty}}
+
+
+<style>
+  @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+
+body {
+    background-color: #eee;
+    font-family: 'Calibri', sans-serif !important;
+}
+
+.mt-100{
+   margin-top:100px;
+
+}
+
+
+.card {
+    margin-bottom: 30px;
+    border: 0;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+    letter-spacing: .5px;
+    border-radius: 8px;
+    -webkit-box-shadow: 1px 5px 24px 0 rgba(68,102,242,.05);
+    box-shadow: 1px 5px 24px 0 rgba(68,102,242,.05);
+}
+
+.card .card-header {
+    background-color: #fff;
+    border-bottom: none;
+    padding: 24px;
+    border-bottom: 1px solid #f6f7fb;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.card-header:first-child {
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+
+
+
+.card .card-body {
+    padding: 30px;
+    background-color: transparent;
+}
+
+.btn-primary, .btn-primary.disabled, .btn-primary:disabled {
+    background-color: #4466f2!important;
+    border-color: #4466f2!important;
+}
+</style>
+
+
+  <div class="container-fluid  mt-100">
+				 <div class="row">
+				 
+					<div class="col-md-12">
+					
+							<div class="card">
+						<div class="card-header">
+						<h5>Cart</h5>
+						</div>
+						<div class="card-body cart">
+								<div class="col-sm-12 empty-cart-cls text-center">
+									<img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+									<h3><strong>Your Cart is Empty</strong></h3>
+									<h4>Add something to make me happy :)</h4>
+									<a href="/" class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue shopping</a>
+									
+								
+								</div>
+						</div>
+				</div>
+						
+					
+					</div>
+				 
+				 </div>
+				
+				</div>
+  {{else}}
+
+
+
+<style>
+  @media (min-width: 1025px) {
+    .h-custom {
+      height: 100vh !important;
+    }
+  }
+
+  .card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: .75em;
+    padding-right: .75em;
+  }
+
+  .card-registration .select-arrow {
+    top: 13px;
+  }
+
+  .bg-grey {
+    background-color: #eae8e8;
+  }
+
+  @media (min-width: 992px) {
+    .card-registration-2 .bg-grey {
+      border-top-right-radius: 16px;
+      border-bottom-right-radius: 16px;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .card-registration-2 .bg-grey {
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+    }
+  }
+
+
+
+  .input::-webkit-outer-spin-button,
+  .input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  .input[type=number] {
+    -moz-appearance: textfield;
+  }
+</style>
+
+
+
+<section class="h-100 h-custom" style="background-color:white;">
+
+
+
+
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12">
+        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+          <div class="card-body p-0">
+            <div class="row g-0">
+              <div class="col-lg-8">
+                <div class="p-5">
+                  <div class="d-flex justify-content-between align-items-center mb-5">
+                    <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
+                    <h6 class="mb-0 text-muted">{{cartCount}} items</h6>
+                  </div>
+
+
+                  {{#each cartItems}}
+                  {{#each this.cartItems}}
+                  <hr class="my-4">
+
+                  <div class="row mb-4 d-flex justify-content-between align-items-center">
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+                      <img src="/productimages/{{this.product.image.[0]}}" class="img-fluid rounded-3"
+                        alt="Cotton T-shirt">
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-xl-3">
+                      <h6 class="text-muted"></h6>
+                      <h6 class="text-black mb-0">{{this.product.productname}}</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+
+
+                      <div class="input-group-btn">
+                        {{#if (gt this.quantity 1)}}
+                        <button class="btn btn-sm btn-primary btn-minus" onclick="decQty('{{this.product._id}}')">
+                          <i class="fa fa-minus"></i>
+                        </button>
+                        {{/if}}
+                      </div>
+
+
+                      {{!-- <a href="/dec-qty/{{this._id}}" class="btn btn-link px-2" role="button"><i
+                          class="fas fa-minus"></i></a> --}}
+
+
+                      {{!-- onclick="this.parentNode.querySelector('input[type=number]').stepDown()" --}}
+
+                      <input id="{{this.product._id}}" disabled name="quantity" value="{{this.quantity}}" type="number"
+                        class=" input" style="width: 40px;" />
+
+                      <div class="input-group-btn">
+                        <button class="btn btn-sm btn-primary btn-plus" onclick="incQty('{{this.product._id}}')">
+                          <i class="fa fa-plus"></i>
+                        </button>
+                      </div>
+
+                      {{!-- <a href="/inc-qty/{{this._id}}" role="button" class="btn btn-link px-2 "><i
+                          class="fas fa-plus"></i></a> --}}
+
+
+
+
+                    </div>
+
+                    {{!-- onclick="this.parentNode.querySelector('input[type=number]').stepUp()" --}}
+                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                      <h6 class="mb-0">₹{{this.product.price}}</h6>
+
+                    </div>
+
+
+                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                      <a href="/delete-cart/{{this.product._id}}" role="button" class="text-muted"
+                        onclick="return confirm('Are you sure you want to remove {{this.product.productname}} !')"><i
+                          class="fas fa-times"></i></a>
+                      {{!-- <button onclick="delete-cart('{{this.product._id}}')" role="button" class="text-muted"><i
+                          class="fas fa-times"></i></button> --}}
+                    </div>
+                  </div>
+                  {{/each}}
+                  {{/each}}
+
+
+
+
+
+                  <hr class="my-4">
+
+                  <div class="pt-5">
+                    <h6 class="mb-0"><a href="/" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Back
+                        to shop</a></h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 bg-grey">
+                <div class="p-5">
+                  <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                  <hr class="my-4">
+
+                  <div class="d-flex justify-content-between mb-4">
+                    <h5 class="text-uppercase">items {{cartCount}}</h5>
+                    <h5>₹ {{totalAmount}}</h5>
+                  </div>
+
+                  {{!-- <div class="d-flex justify-content-between mb-4">
+                    <h5 class="text-uppercase">Discount Price</h5>
+                    <h5>₹ </h5>
+                  </div> --}}
+
+                  {{!-- <h5 class="text-uppercase mb-3">Shipping</h5> --}}
+
+                  {{!-- <div class="mb-4 pb-2">
+                    <select class="select">
+                      <option value="1">Standard-Delivery- €5.00</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                      <option value="4">Four</option>
+                    </select>
+                  </div> --}}
+
+                  {{!-- <h5 class="text-uppercase mb-3">Give code</h5> --}}
+
+                  {{!-- <div class="mb-5">
+                    <div class="form-outline">
+                      <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                      <label class="form-label" for="form3Examplea2">Enter your code</label>
+                    </div>
+                  </div> --}}
+
+                  <hr class="my-4">
+
+                  <div class="d-flex justify-content-between mb-5">
+                    <h5 class="text-uppercase">Total price</h5>
+                    <h5>₹ {{totalAmount}}</h5>
+                  </div>
+
+                  <a href="/checkout" type="button" class="btn btn-dark btn-block btn-lg"
+                    data-mdb-ripple-color="dark">PROCEED</a>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const incQty = async (id) => {
+    try {
+
+
+      const res = await axios.post(`/incQty/${id}`, {}).then((e) => {
+        e.data.response
+        document.getElementById(id).value = e.data.response.quantity
+
+        window.location.reload()
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+</script>
+
+<script>
+  const decQty = async (id) => {
+    try {
+
+
+      const res = await axios.post(`/decQty/${id}`, {}).then((e) => {
+        e.data.response
+        document.getElementById(id).value = e.data.response.quantity
+
+        window.location.reload()
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+</script>
+
+{{!--
+<script>
+  const delete -cart = async (id) => {
+    const res = await axios.post(`/delete-cart/${id}`, {}).then((e) => {
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+        .then((willDelete) => {
+          if (willDelete) {
+            swal("Poof! Your imaginary file has been deleted!", {
+              icon: "success",
+            });
+          } else {
+            swal("Your imaginary file is safe!");
+          }
+        });
+    })
+  }
+
+</script> --}}

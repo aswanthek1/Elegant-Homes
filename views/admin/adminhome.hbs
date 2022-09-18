@@ -1,0 +1,180 @@
+<div class="container">
+  <section>
+    <div class="row">
+      <div class="col-12 mt-3 mb-1">
+        <h5 class="text-uppercase"><b></b></h5>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between px-md-1">
+              <div class="align-self-center">
+                <i class="fas fa-pencil-alt text-info fa-3x"></i>
+              </div>
+              <div class="text-end">
+                <h3>{{lengthUsers}}</h3>
+                <p class="mb-0">Users</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between px-md-1">
+              <div class="align-self-center">
+                <i class="far fa-comment-alt text-warning fa-3x"></i>
+              </div>
+              <div class="text-end">
+                <h3>₹{{totalIncome}}</h3>
+                <p class="mb-0">income</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between px-md-1">
+              <div class="align-self-center">
+                <i class="fas fa-chart-line text-success fa-3x"></i>
+              </div>
+              <div class="text-end">
+                <h3>{{lengthOrder}}</h3>
+                <p class="mb-0">Total Orders</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between px-md-1">
+              <div class="align-self-center">
+                <i class="fas fa-map-marker-alt text-danger fa-3x"></i>
+              </div>
+              <div class="text-end">
+                <h3>0</h3>
+                <p class="mb-0">Failed Orders</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between px-md-1">
+              <div>
+                <h3 class="text-danger">{{totalCancelled}}</h3>
+                <p class="mb-0">Canceled Orders</p>
+              </div>
+              <div class="align-self-center">
+                <i class="fas fa-rocket text-danger fa-3x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between px-md-1">
+              <div>
+                <h3 class="text-success">{{totalDeliverd}}</h3>
+                <p class="mb-0">Delivered Orders</p>
+              </div>
+              <div class="align-self-center">
+                <i class="far fa-user text-success fa-3x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between px-md-1">
+              <div>
+                <h3 class="text-warning">{{totalPending}}</h3>
+                <p class="mb-0">Pending Orders</p>
+              </div>
+              <div class="align-self-center">
+                <i class="fas fa-chart-pie text-warning fa-3x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between px-md-1">
+              <div>
+                <h3 class="text-info">{{totalShipped}}</h3>
+                <p class="mb-0">Shipped Orders</p>
+              </div>
+              <div class="align-self-center">
+                <i class="far fa-life-ring text-info fa-3x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+
+<canvas id="myChart" class="mt-5 container" style="width:100%;max-width:1000px"></canvas>
+<script>
+
+  window.addEventListener('load', (event) => {
+    axios({
+      url: '/admin/getdash',
+      method: 'get'
+    }).then((response) => {
+      console.log(response)
+      var xValues = [response.data.status.dateArray[0],response.data.status.dateArray[1],response.data.status.dateArray[2],response.data.status.dateArray[3],response.data.status.dateArray[4]];
+      var yValues = [response.data.status.dateSale[0],response.data.status.dateSale[1],response.data.status.dateSale[2],response.data.status.dateSale[3],response.data.status.dateSale[4]];
+      var barColors = ["red", "green", "blue", "orange", "brown"];
+
+      new Chart("myChart", {
+        type: "bar",
+        data: {
+          labels: xValues,
+          datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+          }]
+        },
+        options: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: "Sales Report"
+          }
+        }
+      });
+    })
+  })
+
+
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

@@ -1,0 +1,512 @@
+<style>
+  body {
+    background: #b3bbbb
+  }
+</style>
+
+<div class="container rounded bg-white mt-5 mb-5">
+  <div class="row">
+    <div class="col-md-3 border-right">
+      <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+          width="150px"
+          src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
+          class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span>
+      </div>
+
+
+
+      <div class="mx-0 ml-5 text-center d-flex flex-column " style="width: fit-content;">
+
+        <a href="/" role="button" class="btn btn-primary ">HOME</a>
+        {{!-- <button class="btn btn-primary profile-button" type="button">Edit Profile</button> --}}
+
+
+        <a href="" class="btn btn-primary btn-rounded mt-2" data-toggle="modal" data-target="#editmodalContactForm">Edit
+          Profile</a>
+
+        <a href="" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modalContactForm">Add Address</a>
+        {{!-- <a href="" role="button" class="btn btn-primary">Edit Password</a> --}}
+
+
+        <a href="" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modalLoginForm">Edit Password</a>
+
+        <a href="/orders" role="button" class="btn btn-primary mt-2">My Orders</a>
+
+        <a href="/logout" role="button" class="btn btn-primary mt-2 mb-3">Logout</a>
+
+      </div>
+
+
+
+
+
+
+    </div>
+    <div class="col-md-8 border-right">
+      <div class="p-3 py-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="text-right">Profile Settings</h4>
+        </div>
+
+        <div class="row mt-3">
+
+
+          <div class="col-md-12"><label class="labels"></label><input disabled="" type="text" class="form-control"
+              placeholder="Full name" value="{{userData.name}}" name="name"></div>
+
+          <div class="col-md-12"><label class="labels"></label><input type="text" disabled class="form-control"
+              placeholder="phone number" value="{{userData.phonenumber}}"></div>
+
+          <div class="col-md-12"><label class="labels"></label><input type="text" disabled class="form-control"
+              placeholder="email id" value="{{userData.email}}"></div>
+
+
+
+          <div class="col-md-12"><label class="labels"> </label><input type="text" disabled class="form-control"
+              placeholder="Address" value="{{userData.Address}}"></div>
+
+
+
+
+
+        </div>
+
+
+        <div class="row gx-4">
+
+
+        {{#each singleAddress}}
+          <div class="col-md-6  mt-5">
+          <div class="card" style="width: 16rem;">
+            {{!-- <i class="icon-cart-add mr-2">X</i> --}}
+
+
+
+       <button type="button" class="btn btn " style="width: 4px;float:right;" data-toggle="modal" data-target="#exampleModal{{this._id}}">
+  <b> X</b>
+</button>
+
+  
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button"  class="btn btn-danger"><a href="/deleteAddress/{{this._id}}" style="color: white;">Delete</a></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+            {{!-- <button onclick="return deleteAddress('{{this._id}}')"
+              style="border-style: none;background-color: white;padding-left: 80%"><b>X</b></button> --}}
+
+
+            {{!-- <button onclick="deleteAddress('{{this._id}}')"
+              style="border-style: none;background-color: white;padding-left: 80%"><b>X</b></button> --}}
+
+            {{!-- <a href="/deleteAddress/{{this._id}}" style=""><b>X</b></a> --}}
+
+            {{!-- <img class="card-img-top" src="..." alt="Card image cap"> --}}
+            <div class="card-body">
+              <h5 class="card-title">{{this.address.name}}</h5>
+              <p class="card-text">{{this.address.Address}}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+
+              <li class="list-group-item">{{this.address.locality}}</li>
+              <li class="list-group-item">{{this.address.landmark}}</li>
+              <li class="list-group-item">{{this.address.pincode}}</li>
+              <li class="list-group-item">{{this.address.district}}</li>
+
+            </ul>
+
+          </div>
+          </div>
+        {{/each}}
+        </div>
+
+
+
+        {{!-- //////////////////////////////////////ADD ADDRESS MODAL////////////////////////////////////// --}}
+
+
+        {{!-- <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalContactForm">Add Address</a>
+        --}}
+
+        {{!-- <a href="/" role="button" class="btn btn-primary">ADD ADDRESS</a> --}}
+        {{!-- <a href="/logout" role="button" class="btn btn-primary">LOGOUT</a> --}}
+
+      </div>
+      <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+              <h4 class="modal-title w-100 font-weight-bold">Add Address</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form action="/userProfile" method="post" id="addaddress">
+
+              <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                  <i class="fas fa-user prefix grey-text"></i>
+                  <input type="text" id="name" name="name" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="form34">Your name</label>
+                </div>
+
+
+                <div class="md-form mb-5">
+                  <i class="fas fa-envelope prefix grey-text"></i>
+                  <input type="number" name="phonenumber" id="phonenumber" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="form29">Phone Number</label>
+                </div>
+
+
+
+                <div class="md-form mb-5">
+                  <i class="fas fa-envelope prefix grey-text"></i>
+                  <input type="email" id="email" name="email" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="form29">Your email</label>
+                </div>
+
+
+
+                <div class="md-form">
+                  <i class="fas fa-pencil prefix grey-text"></i>
+                  <input type="text" id="Address" name="Address" class="md-textarea form-control" rows="4">
+                  <label data-error="wrong" data-success="right" for="form32">Address</label>
+                </div>
+
+
+                <div class="md-form mb-5">
+                  <i class="fas fa-tag prefix grey-text"></i>
+                  <input type="text" id="locality" name="locality" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="form32">Locality</label>
+                </div>
+
+
+                <div class="md-form mb-5">
+                  <i class="fas fa-tag prefix grey-text"></i>
+                  <input type="number" id="pincode" name="pincode" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="form32">Pincode</label>
+                </div>
+
+
+                <div class="md-form mb-5">
+                  <i class="fas fa-tag prefix grey-text"></i>
+                  <input type="text" id="landmark" name="landmark" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="form32">Landmark</label>
+                </div>
+
+
+                <div class="md-form mb-5">
+                  <i class="fas fa-tag prefix grey-text"></i>
+                  <input type="text" id="district" name="district" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="form32">District</label>
+                </div>
+
+              </div>
+              <div class="modal-footer d-flex justify-content-center">
+                <button class="btn btn-primary" type="submit">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#addaddress').submit(function (e) {
+    
+      var name = $('#name').val();
+      var phonenumber = $('#phonenumber').val();
+      var email = $('#email').val();
+      var Address = $('#Address').val();
+      var locality = $('#locality').val();
+      var pincode = $('#pincode').val();
+      var landmark = $('#landmark').val();
+      var district = $('#district').val();
+      $(".error").remove();
+      if (name.length < 1) {
+         e.preventDefault(); 
+        $('#name').after('<span class="error" >This field is required</span>');
+      }
+      if (phonenumber.length < 10) {
+         e.preventDefault(); 
+        $('#phonenumber').after('<span class="error">This field is required and need a valid number</span>');
+      }
+      if (email.length < 1) {
+         e.preventDefault(); 
+        $('#email').after('<span class="error">This field is required</span>');
+      }
+
+      if (Address.length < 5) {
+         e.preventDefault(); 
+        $('#Address').after('<span class="error">This field is required</span>');
+      }
+
+      if (locality.length < 1) {
+         e.preventDefault(); 
+        $('#locality').after('<span class="error">This field is required</span>');
+      }
+
+      if (pincode.length < 1) {
+         e.preventDefault(); 
+        $('#pincode').after('<span class="error">This field is required</span>');
+      }
+
+      if (landmark.length < 1) {
+         e.preventDefault(); 
+        $('#landmark').after('<span class="error">This field is required</span>');
+      }
+
+      if (district.length < 2) {
+         e.preventDefault(); 
+        $('#district').after('<span class="error">This field is required</span>');
+      }
+    });
+
+  });  
+</script>
+
+<style>
+  .error {
+    color: red;
+  }
+</style>
+
+
+
+
+
+
+
+
+{{!-- //////////////////////////////edit profile modal///////// --}}
+
+
+
+
+
+<div class="modal fade" id="editmodalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Edit Profile</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form action="/editProfile/{{userData._id}}" method="post">
+
+        <div class="modal-body mx-3">
+          <div class="md-form mb-5">
+            <i class="fas fa-user prefix grey-text"></i>
+            <input type="text" id="form34" name="name" value="{{userData.name}}" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="form34">Your name</label>
+          </div>
+
+          <div class="md-form mb-5">
+            <i class="fas fa-envelope prefix grey-text"></i>
+            <input type="email" name="email" value="{{userData.email}}" id="form29" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="form29">Your email</label>
+          </div>
+
+
+          <div class="md-form mb-5">
+            <i class="fas fa-envelope prefix grey-text"></i>
+            <input type="number" name="phonenumber" value="{{userData.phonenumber}}" id="form29"
+              class="form-control validate">
+            <label data-error="wrong" data-success="right" for="form29">Phone Number</label>
+          </div>
+
+
+          <div class="modal-footer d-flex justify-content-center">
+            <button class="btn btn-primary" type="submit">Submit<i class="fas fa-paper-plane-o ml-1"></i></button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+{{!-- /////////////////////////////////edit Password modal///////////////////////////////// --}}
+
+
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+    <form action="/editPassword/{{userData._id}}" method="post" id="editPassword">
+
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">Edit Password</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body mx-3">
+          <div class="md-form mb-5">
+            <i class="fas fa-lock prefix grey-text"></i>
+            <input type="password" id="oldpassword" name="oldpassword" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="defaultForm-email">Enter Current Password</label>
+          </div>
+
+          <div class="md-form mb-4">
+            <i class="fas fa-lock prefix grey-text"></i>
+            <input type="password" id="newpassword" name="newpassword" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="defaultForm-pass">Enter New Password</label>
+          </div>
+
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button class="btn btn-default" type="submit">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#editPassword').submit(function (e) {
+      
+      var oldpassword = $('#oldpassword').val();
+      var newpassword = $('#newpassword').val();
+
+      $(".error").remove();
+      if (oldpassword.length < 1) {
+        e.preventDefault();
+        $('#oldpassword').after('<span class="error" >This field is required</span>');
+      }
+      if (newpassword.length < 6) {
+        e.preventDefault();
+        $('#newpassword').after('<span class="error">This field is required and need minimum 6 elements</span>');
+      }
+
+    });
+
+  });  
+</script>
+
+<style>
+  .error {
+    color: red;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+<script>
+  const deleteAddress = async (id) => {
+
+    const res = await axios.post(`/deleteAddress/${id}`, {}).then((e) => {
+
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+        .then((willDelete) => {
+          if (willDelete) {
+            swal("Poof! Your imaginary file has been deleted!", {
+              icon: "success",
+            });
+            window.location.reload()
+          } else {
+            swal("Your imaginary file is safe!");
+          }
+        });
+    })
+
+  }
+
+
+  function deleteAddresspp(id) {
+    console.log("kfkfkf")
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+
+          swal("Poof! Your imaginary file has been deleted!", {
+            icon: "success",
+          });
+          window.location.reload()
+        } else {
+          swal("Your imaginary file is safe!");
+        }
+      });
+  }
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+{{!-- /////////////////////////////////////delete addresss modal//////////////////////////////// --}}
+
+
+
+
+
+

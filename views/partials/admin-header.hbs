@@ -1,0 +1,102 @@
+
+<style>
+  a:hover{
+    
+    font-size: small;
+  }
+</style>
+
+
+<section>
+  <nav class="navbar navbar-expand-xl navbar-light" style="background-color: #74CDE9;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#" style="color:whitesmoke ;font-weight: 800;">HI ADMIN</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/admin"
+              style="color:whitesmoke ;font-weight: 600;">DASHBOARD</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/userdetails" style="color:whitesmoke ;font-weight: 600;">USERS</a>
+          </li>
+
+
+
+          {{!-- <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li> --}}
+
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/category" style="color:whitesmoke ;font-weight: 600;">CATEGORY</a>
+          </li>
+
+
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/productdetails" style="color:whitesmoke ;font-weight: 600;">PRODUCTS</a>
+          </li>
+
+
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/banners" style="color:whitesmoke ;font-weight: 600;">BANNERS</a>
+          </li>
+
+
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/orders" style="color:whitesmoke ;font-weight: 600;">ORDERS</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/coupens" style="color:whitesmoke ;font-weight: 600;">COUPONS</a>
+          </li>
+
+          {{!-- <li class="nav-item">
+            <a class="nav-link disabled" href="/admin/category" tabindex="-1" aria-disabled="true">Category</a>
+          </li> --}}
+        </ul>
+        <ul>
+          <li class="nav-item dropdown" style="list-style: none;">
+            <a class="nav-link dropdown-toggle " href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false" style="color:whitesmoke ;font-weight: 600;">
+              ACCOUNT
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {{!-- <li><a class="dropdown-item" href="#">Another action</a></li> --}}
+              <li><a class="dropdown-item" href="/admin/adminlogout"
+                  style="color: #74CDE9 ;font-weight: 600;">LOGOUT</a></li>
+
+              {{!-- <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li> --}}
+            </ul>
+          </li>
+
+
+        </ul>
+
+        {{!-- <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form> --}}
+      </div>
+    </div>
+  </nav>
+
+</section>

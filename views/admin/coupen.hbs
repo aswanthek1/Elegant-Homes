@@ -1,0 +1,211 @@
+
+
+<style>
+td{
+    font-weight: 500;
+    color: rgb(63, 5, 5);
+
+}
+thead{
+    
+}
+table{
+    border: 4px solid;
+}
+</style>
+
+
+
+
+<div class="d-flex justify-content-end mb-5 mt-4">
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        data-bs-whatever="@getbootstrap">ADD COUPEN</button>
+</div>
+<div class="container-fluid">
+<table id="example" class="table table-striped " style="width:100%;">
+    <thead>
+        <tr>
+            <th>Coupen Name</th>
+            <th>Coupen Code</th>
+            <th>Discount</th>
+            <th>Change Status</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        {{#each allCoupens}}
+        <tr>
+            <td>{{this.coupenName}}</td>
+            <td>{{this.coupenCode}}</td>
+            <td>{{coupenDiscount}}</td>
+            <td>
+                <a class="btn btn-info" role="button" href="/admin/edit-coupen/{{this._id}}">Edit</a>
+        {{!-- <a type="button" class="btn btn-primary" data-bs-toggle="modal" href="" data-bs-target="#editexampleModal" 
+        data-bs-whatever="@getbootstrap">EDIT</a>--}}
+
+                <a class="btn btn-danger" href="/admin/delete-coupen/{{this._id}}"
+                    onclick="return confirm('Are you sure you want to delete product {{this.coupenName}} ?')">Delete</a>
+
+            </td>
+
+        </tr>
+        {{/each}}
+    </tbody>
+    
+
+</table>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{!-- ///////////////////////////////add coupen modal/////////////////// --}}
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/admin/coupens" method="post" id="addcoupen">
+                    <div class="mb-3">
+                        <label for="coupenName" class="col-form-label">Coupen Name</label>
+                        <input type="text" name="coupenName" class="form-control" id="coupenName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Coupen Code</label>
+                        <input type="text" class="form-control" name="coupenCode" id="coupenCode">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Discount</label>
+                        <input type="text" class="form-control" name="coupenDiscount" id="coupenDiscount">
+                    </div>
+
+                    {{!-- <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div> --}}
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    {{!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> --}}
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>  
+<script>  
+$(document).ready (function () {  
+ $('#addcoupen').submit (function (e) {  
+    
+    var coupenName = $('#coupenName').val();  
+    var coupenCode = $('#coupenCode').val();   
+    var coupenDiscount = $('#coupenDiscount').val();  
+   
+     
+  $(".error").remove();  
+if (coupenName.length < 1) {  
+     e.preventDefault(); 
+      $('#coupenName').after('<span class="error" >This field is required</span>');  
+    }  
+if (coupenCode.length < 1) {  
+     e.preventDefault(); 
+      $('#coupenCode').after('<span class="error">This field is required</span>');  
+    }  
+   
+    if(coupenDiscount.length < 1){
+         e.preventDefault(); 
+      $('#coupenDiscount').after('<span class="error">This field is required</span>');  
+    }
+  });  
+    
+});  
+</script> 
+
+<style>
+  .error{
+    color: red;
+  }
+</style>
+
+
+
+
+{{!-- ///////////////////////////////edit coupen modal/////////////////// --}}
+
+
+
+
+{{!-- <div class="modal fade" id="editexampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                
+                <form action="" method="post">
+                    <div class="mb-3">
+                        <label for="coupenName" class="col-form-label">Coupen Name</label>
+                        <input type="text" name="coupenName" value="{{editCoupen.coupenName}}" class="form-control" id="coupenName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Coupen Code</label>
+                        <input type="text" class="form-control" name="coupenCode" id="coupenCode">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Discount</label>
+                        <input type="text" class="form-control" name="coupenDiscount" id="coupenDiscount">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+
+                </form>
+               
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div> --}}

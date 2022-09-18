@@ -1,0 +1,161 @@
+
+<style>
+    .numinput::-webkit-outer-spin-button,
+.numinput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.numinput[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
+{{!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> --}}
+    <section class="login_part mt-3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6" style="width: 585px;height: 600px;">
+                    <a href="/" class="btn_3 position-absolute"> < </a>
+                    <div class="login_part_text text-center">
+                        <div class="login_part_text_iner">
+                            <h2>New to our Shop?</h2>
+                            {{!-- <p>There are advances being made in science and technology
+                                everyday, and a good example of this is the</p> --}}
+                                <p>If you dont have an account then just fill up the form and get in.
+                                    If you are already in then just login
+                                </p>
+                            <a href="/login" class="btn_3">Login Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="login_part_form">
+                        <div class="login_part_form_iner">
+                            <h3>
+                                Please Sign up now</h3>
+                                  {{#if userAlreadyExist}}
+                                
+                                <p class="text-danger">User already registerd</p>
+
+                                {{/if}}
+                            <form class="row contact_form" action="/signup" method="post" id="myform">
+                                
+                              
+                                
+                                
+                                <div class="col-md-12 form-group p_star"  >
+                                    <input type="text" class="form-control" id="name" name="name" value="" style="background-color:aqua ; border-radius :12px;"
+                                        placeholder="Fullname" >
+                                </div>
+
+                              <div class="col-md-12 form-group p_star" >
+                                    <input type="email" class="form-control" id="email" name="email" value="" style="background-color:aqua ; border-radius :12px;"
+                                        placeholder="Email" >
+                                </div>
+
+                                      <div class="col-md-12 form-group p_star"  >
+                                    <input type="number" class="form-control numinput" id="phonenumber" name="phonenumber" value="" style="background-color:aqua ; border-radius :12px;"
+                                        placeholder="Phone Number" >
+            
+                                    <input type="text" class="form-control" id="status" name="status" value="false" hidden style="background-color:aqua ; border-radius :12px;"
+                                        placeholder="">
+                                </div>
+
+
+                                <div class="col-md-12 form-group p_star">
+                                    <input type="password" class="form-control" id="password" name="password" value="" style="background-color:aqua ; border-radius :12px;"
+                                        placeholder="Password" >
+                                </div>
+
+                                   <div class="col-md-12 form-group p_star" >
+                                    <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" value=""  style="background-color:aqua ; border-radius :12px;"
+                                        placeholder="Confirm Password" >
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    {{!-- <div class="creat_account d-flex align-items-center">
+                                        <input type="checkbox" id="f-option" name="selector">
+                                        <label for="f-option">Remember me</label>
+                                    </div> --}}
+                                    <button type="submit" value="submit" class="btn_3">
+                                        Sign In 
+                                    </button>
+                                    
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+  <script>
+  $(document).ready(function(){
+    $("#myform").validate({
+        rules:{
+            name:{
+                required:true,
+                minlength:6,
+                maxlength:15
+            },
+            email:{
+                required:true,
+                email:true
+                
+                
+            },
+            phonenumber:{
+                required:true,
+                number:true
+               
+            },
+            password:{
+                required:true,
+                minlength:4,
+                maxlength:8
+                
+            },
+            confirmpassword:{
+                required:true,
+                equalTo:'#password'
+
+            }
+        },
+        messages:{
+          name:{
+          
+          required:"You should enter your full name",
+          minlength:"enter minimum 6 charachters",
+          maxlength:"Maximum limit of characters is 15"
+          
+          
+          },
+         email:{
+            required:"This field is mandatory"
+            
+            
+         },
+         phonenumber:{
+            required:"You should enter a valid number"
+         },
+         password:{
+            required:"Please enter the password",
+            minlength:"minimum four charachters is needed",
+            maxlength:"maximum eight charachters is possible"
+        },
+        confirmpassword:{
+            required:"this field is required",
+            equalTo:"please enter the same password"
+        }
+        }
+
+    })
+  })
+
+  
+</script>
+   

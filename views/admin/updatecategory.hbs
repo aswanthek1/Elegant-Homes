@@ -1,0 +1,66 @@
+<section >
+        <div class="container">
+        
+              <div class="row">
+                <div class="col-md-6">
+                    <h2 class="text-center">Update Category</h2>
+                    <form action="/admin/updatecategory/{{categorydata._id}}" method="post" id="editcategory" enctype="multipart/form-data">
+                        <label for="">Category Name</label>
+                        <input type="text" value="{{categorydata.categoryname}}"  name="categoryname" id="categoryname" class="form-control" >
+                        {{!-- {{#if categoryexist}}
+                        <p>category exist</p>
+
+
+                        {{/if}} --}}
+
+                         {{!-- <label for="">Category</label>
+                        <input type="text" name="category" class="form-control"> --}}
+
+                        {{!-- <label for="">Price</label>
+                        <input type="text" name="price" class="form-control"> --}}
+                    
+                      <label for="">Images</label> <img src="/productimages/{{categorydata.image.[0]}}" alt="" width="100em" class="mt-5">
+                        <input type="file" name="image" id="image" multiple class="form-control"> 
+                    
+                        <a class="btn btn-primary mt-4" href="/admin/category">Go Back</a>
+                        <button  type="submit" role="button" class="btn btn-success mt-4">Save</button>
+                        
+                        
+                    
+                    </form>
+                </div>
+              </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>  
+<script>  
+$(document).ready (function () {  
+ $('#editcategory').submit (function (e) {  
+      
+    var categoryname = $('#categoryname').val();  
+    var image = $('#image').val();  
+      
+     
+  $(".error").remove();  
+if (categoryname.length < 1) {  
+  e.preventDefault();
+      $('#categoryname').after('<span class="error" >This field is required</span>');  
+    }  
+if (image.length < 1) { 
+  e.preventDefault(); 
+      $('#image').after('<span class="error">This field is required</span>');  
+    }     
+
+  });  
+    
+});  
+</script> 
+
+<style>
+  .error{
+    color: red;
+  }
+</style>
