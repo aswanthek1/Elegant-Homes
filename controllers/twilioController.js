@@ -3,11 +3,15 @@ const async = require('hbs/lib/async');
 const { ConnectionCheckOutFailedEvent } = require('mongodb');
 const { resolve, reject } = require('promise');
 const userModel = require('../models/userModel');
+const dotenv = require('dotenv')
+dotenv.config({path:"./config.env"})
+
+
 
 let config = {
-    serviceSid: 'VAe17a79e988c1e74c467917d930ce39e6',
-    accountSID: "AC2f4aeaab671c65db52c1a798a540095b",
-    authToken: "6a6557e66ccb38e315df6d1c4ad06e4d"
+    serviceSid: process.env.serviceSid,
+    accountSID: process.env.accountSID,
+    authToken: process.env.authToken
 };
 
 const client = require('twilio')(config.accountSID, config.authToken);

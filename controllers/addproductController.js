@@ -15,10 +15,12 @@ const coupenModel = require('../models/coupenModel')
 const { MongoUnexpectedServerResponseError } = require('mongodb')
 const Razorpay = require('razorpay');
 const fs = require('fs');
+const dotenv = require('dotenv')
+dotenv.config({path:"./config.env"})
 
 var instance = new Razorpay({
-  key_id: 'rzp_test_5MGUE48tUmu4z4',
-  key_secret: 'fU2HBKyhh55bR6ShHXwsiAuy'
+  key_id: process.env.key_id,
+  key_secret: process.env.key_secret
 });
 
 Helpers = {
@@ -658,24 +660,19 @@ Helpers = {
   },
 
   applyCoupen: (userID, coupenData) => {
-    console.log(userID, "   ", coupenData);
-    // let coupenStr;ing = JSON.stringify(coupenData)
     console.log(coupenData.code);
     return new Promise(async (resolve, reject) => {
       try {
         let response = {};
         response.discount = 0
         let coupen = await coupenModel.findOne({ coupenCode: coupenData.code })
-        // console.log("response  ", coupen);
         if (coupen) {
           response.coupen = coupen
-          console.log("hfhfhfhfhfhf ", coupenData.code)
           let coupenuser = await coupenModel.findOne({
             coupenCode: coupenData.code,
             userId: { $in: [userID] },
             
           })
-          console.log("userserrrrrrrrr   ", coupenuser);
           if (coupenuser) {
             response.status = false
             resolve(response)
@@ -712,9 +709,7 @@ Helpers = {
               } else {
                 resolve(response)
               }
-            })
-
-            // })
+            })       
           }
         } else {
           response.status = false
@@ -749,7 +744,6 @@ Helpers = {
     return new Promise(async (resolve, reject) => {
       try {
         await coupenModel.findOne({ _id: coupenid, userId: { $in: [userid] } }).lean().then((response) => {
-          console.log("coupen ucerrrr ", response)
           resolve(response)
         })
 
@@ -810,7 +804,7 @@ Helpers = {
     return new Promise(async (resolve, reject) => {
       try {
         const crypto = require('crypto')
-        let hmac = crypto.createHmac('sha256', 'fU2HBKyhh55bR6ShHXwsiAuy')
+        let hmac = crypto.createHmac('sha256', process.env.key_secret)
         let body = details.payment.razorpay_order_id + "|" + details.payment.razorpay_payment_id;
         hmac.update(body.toString());
         hmac = hmac.digest('hex')

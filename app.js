@@ -8,6 +8,8 @@ const mongoose = require('mongoose');
 let session = require('express-session');
 const multer = require("multer");
 const easyinvoice = require('easyinvoice')
+const dotenv = require('dotenv')
+dotenv.config({path:"./config.env"})
 
 let usersRouter = require('./routes/users');
 let adminRouter = require('./routes/admin');
@@ -44,7 +46,7 @@ inc1:(n) => {
 }}))
 
 
-const mongoURI = "mongodb://localhost:27017/elegant";
+const mongoURI = process.env.DATABASE;
 mongoose.connect(mongoURI).then((res)=>{
   console.log("mongoose connected");
 }).catch((err)=>{
