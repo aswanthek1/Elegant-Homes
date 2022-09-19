@@ -90,11 +90,11 @@ background-color: antiquewhite;
                                     </button>
                                 </div>
 
-                                {{#if req.session.userBlocked}}
+                                {{#if userBlocked}}
                                 <p>You couldn't access</p>
                                 {{/if}}
 
-                                 {{#if req.session.usernotfound}}
+                                 {{#if usernotfound}}
                                  <p>You should signup first</p>
                                     {{/if}}
                                

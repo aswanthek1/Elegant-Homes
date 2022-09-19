@@ -239,7 +239,7 @@
                                 {{#each productList}}
 
 
-                                <div class="col-lg-3 col-sm-6 {{this.categoryname}}">
+                                <div class="col-lg-3 col-sm-6 mt-4">
                                     <div class="single_product_item">
                                         <a href="/singleProduct/{{this._id}}"><img
                                                 src="/productimages/{{this.image.[0]}}" alt=""></a>
@@ -247,13 +247,13 @@
                                             <h4>{{this.productname}}</h4>
                                             <h3>₹ {{this.price}}</h3>
                                             <button onclick="addToCart('{{this._id}}')" class="add_cart"
-                                                style="border-style: none;">+ add to cart</button>
+                                                style="border-style: none;background-color:white;">+ add to cart</button>
                                             {{!-- <a href="/wishlist/{{this._id}}"><span style="margin-left: 40px;"><i
                                                         class="ti-heart"></i></span></a>
                                             --}}
 
                                             <button onclick="wishlist('{{this._id}}')"
-                                                style="border-style:none;margin-left:4rem"><span>
+                                                style="border-style:none;margin-left:4rem;background-color: white;"><span>
                                                     <i class="ti-heart"></i></span></button>
 
 
@@ -487,7 +487,7 @@
 </section>
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
     const addToCart = async (id) => {
@@ -526,4 +526,3 @@
     }
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
