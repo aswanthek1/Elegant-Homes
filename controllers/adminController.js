@@ -50,7 +50,6 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 let users = await userModel.find({}).lean()
-                console.log(users);
                 resolve(users)  
             } catch (error) {
                 reject(error)
@@ -343,20 +342,17 @@ stati : () =>{
               var d = new Date();
               d.setDate(d.getDate() -i)
               var newdate = d.toISOString()
-              newdate = newdate.slice(0,10)
-              console.log(newdate) 
+              newdate = newdate.slice(0,10) 
               dateArray[i]=newdate
            }
             var dateSale = []
             for(let i=0;i<5;i++){
             dateSale[i] = await orderModel.find({newdate:dateArray[i]}).lean().count()
             }
-            console.log(dateSale)
             var status ={
                 dateSale:dateSale,
                 dateArray:dateArray 
             }
-            console.log(status)
             resolve(status)
 
         } catch (error) {

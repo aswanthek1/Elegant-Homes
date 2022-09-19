@@ -38,7 +38,7 @@ module.exports = {
                             channel: "sms"
                         })
                             .then((data) => {
-                                console.log("response")
+                                console.log("response",data)
                                 response.data = data;
                                 response.user = user;
                                 response.email = user.email

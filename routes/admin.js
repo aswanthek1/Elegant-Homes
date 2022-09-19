@@ -79,9 +79,7 @@ router.get('/adminhome', (req, res) => {
       res.redirect('/admin/adminhome')
    } else {
       let adminnotfound = req.session.adminnotfound
-      console.log("jjj  ", adminnotfound)
       let wrongpassword = req.session.wrongpassword
-      console.log("jjj  ", wrongpassword)
       res.render('admin/adminlogin', { adminnotfound, wrongpassword })
    }
 })
@@ -211,12 +209,7 @@ router.get('/editcategory/:id', verifyAdminlogin, (req, res) => {
 })
 
 
-// router.post('/updatecategory/:id',(req,res) =>{
-//    let categoryid = req.params.id
-// categoryController.updatecategory(categoryid,req.body).then((response) =>{
-//    res.redirect('/admin/category')
-// })
-// })
+
 
 
 router.post('/updatecategory/:id', uploads.array("image", 3), (req, res) => {
@@ -295,16 +288,6 @@ router.get('/edit-product/:_id', verifyAdminlogin, (req, res) => {
 
 
 
-// router.post('/editproduct/:id',(req,res) => {
-//    // console.log("ethi"); 
-//    // console.log(req.body);
-//    let productID = req.params.id
-//    console.log(productID);
-//    productController.updateProduct(productID,req.body).then((response) => {
-//       // console.log(response);
-//       res.redirect('/admin/productdetails')
-//    })
-// })
 
 
 router.post('/editproduct/:id', uploads.array("image", 3), (req, res) => {
@@ -377,16 +360,7 @@ router.get('/edit-banners/:id', verifyAdminlogin, (req, res) => {
 
 })
 
-// router.post('/editbanner/:id',(req,res) => {
 
-//    let bannerID = req.params.id
-//    console.log(req.body);
-//    productController.editBanner(bannerID,req.body).then((response) => {
-//       console.log("i got it     "+response);
-//       res.redirect('/admin/banners')
-//    })
-
-// })
 
 router.post('/editbanner/:id', uploads.array("image", 3), (req, res) => {
    let bannerID = req.params.id
@@ -483,7 +457,6 @@ router.get('/edit-coupen/:id', verifyAdminlogin, (req, res) => {
 
 router.get('/getdash', (req, res, next) => {
    adminController.stati().then((status) => {
-      console.log(status)
       res.json({ status })
    }).catch((err) => {
       next(err)
