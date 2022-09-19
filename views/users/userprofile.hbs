@@ -444,62 +444,7 @@
 
 
 
-
-
-
-
-
-
-<script>
-  const deleteAddress = async (id) => {
-
-    const res = await axios.post(`/deleteAddress/${id}`, {}).then((e) => {
-
-      swal({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      })
-        .then((willDelete) => {
-          if (willDelete) {
-            swal("Poof! Your imaginary file has been deleted!", {
-              icon: "success",
-            });
-            window.location.reload()
-          } else {
-            swal("Your imaginary file is safe!");
-          }
-        });
-    })
-
-  }
-
-
-  function deleteAddresspp(id) {
-    console.log("kfkfkf")
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    })
-      .then((willDelete) => {
-        if (willDelete) {
-
-          swal("Poof! Your imaginary file has been deleted!", {
-            icon: "success",
-          });
-          window.location.reload()
-        } else {
-          swal("Your imaginary file is safe!");
-        }
-      });
-  }
-
-</script>
+  
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
