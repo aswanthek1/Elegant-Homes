@@ -46,7 +46,7 @@ inc1:(n) => {
 }}))
 
 
-const mongoURI = 'mongodb+srv://AswanthRaveendran:aswanthek@cluster0.ddymubg.mongodb.net/elegant';
+const mongoURI = 'mongodb+srv://AswanthRaveendran:aswanthek@cluster0.ddymubg.mongodb.net/elegant?retryWrites=true&w=majority';
 mongoose.connect(mongoURI).then((res)=>{
   console.log("mongoose connected");
 }).catch((err)=>{
