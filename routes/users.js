@@ -14,6 +14,20 @@ const adminController = require('../controllers/adminController')
 const categoryController = require('../controllers/categoryController')
 const moment = require('moment');
 const cartModel = require('../models/cartModel');
+const multer = require("multer");
+
+
+
+const storage = multer.diskStorage({
+  destination: "public/userimages",
+  filename: (req, file, cb) => {
+     cb(null, Date.now() + '--' + file.originalname);
+  }
+})
+
+const uploads = multer({
+  storage
+});
 
 
 
@@ -411,16 +425,17 @@ router.get('/deleteAddress/:id', (req, res, next) => {
 ///////////////////////////edit profile///////////////////////////////////////
 
 
-router.post('/editProfile/:id', (req, res, next) => {
-  let id = req.params.id
 
+router.post('/editProfile/:id',uploads.single("image"),(req,res) => {
+  let id = req.params.id
+  let userimage = req.file
+  req.body.image = userimage
   userController.editProfile(req.body, id).then((profileDetails) => {
-    // console.log("edited user      ",profileDetails);
-    res.redirect('/userProfile')
-  }).catch((err) => {
-    next(err)
+   res.redirect('/userProfile')
   })
 })
+
+
 
 //////////////////////////////////edit password////////////////////////
 

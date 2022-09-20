@@ -9,7 +9,7 @@
     <div class="col-md-3 border-right">
       <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
           width="150px"
-          src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
+          src="/userimages/{{userData.image.filename}}"><span
           class="font-weight-bold">{{userData.name}}</span><span class="text-black-50">{{userData.email}}</span><span> </span>
       </div>
 
@@ -334,7 +334,7 @@
         </button>
       </div>
 
-      <form action="/editProfile/{{userData._id}}" method="post">
+      <form action="/editProfile/{{userData._id}}" method="post" enctype="multipart/form-data">
 
         <div class="modal-body mx-3">
           <div class="md-form mb-5">
@@ -353,6 +353,13 @@
           <div class="md-form mb-5">
             <i class="fas fa-envelope prefix grey-text"></i>
             <input type="number" name="phonenumber" value="{{userData.phonenumber}}" id="form29"
+              class="form-control validate">
+            <label data-error="wrong" data-success="right" for="form29">Phone Number</label>
+          </div>
+
+          <div class="md-form mb-5">
+            <i class="fas fa-envelope prefix grey-text"></i>
+            <input type="file" name="image" value="" id="form29"
               class="form-control validate">
             <label data-error="wrong" data-success="right" for="form29">Phone Number</label>
           </div>

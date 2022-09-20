@@ -120,7 +120,7 @@ router.get('/adminlogout', (req, res) => {
 
 router.get('/userdetails', verifyAdminlogin, (req, res) => {
    adminController.getUserData().then((users) => {
-      res.render('admin/userdetails', { users, layout: 'admindashboard', admin_header: true })
+      res.render('admin/userdetails', { users, userdata: true, layout: 'admindashboard', admin_header: true })
    })
 }),
 
@@ -150,13 +150,13 @@ router.get('/activate-user/:id', (req, res) => {
 
 router.get('/category', verifyAdminlogin, (req, res) => {
    categoryController.getcategory().then((category) => {
-      if( req.session.categoryexist){
-         let categoryexist =  req.session.categoryexist
-         res.render('admin/category', { category, layout: 'admindashboard', admin_header: true,categoryexist })
-         req.session.categoryexist=null
-      }else{
+      if (req.session.categoryexist) {
+         let categoryexist = req.session.categoryexist
+         res.render('admin/category', { category, layout: 'admindashboard', admin_header: true, categoryexist })
+         req.session.categoryexist = null
+      } else {
          res.render('admin/category', { category, layout: 'admindashboard', admin_header: true })
-      }        
+      }
    })
 })
 

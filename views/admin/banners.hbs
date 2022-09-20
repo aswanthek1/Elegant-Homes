@@ -1,55 +1,72 @@
+<style>
+    .row {
+        font-size: 12px;
+    }
+
+    td {
+        font-weight: 500;
+        color: rgb(63, 5, 5);
+
+    }
+
+    thead {}
+
+    table {
+        border: 2px solid;
+    }
+</style>
+
+
+
 <div class="d-flex justify-content-end container">
- <a class="btn btn-primary mt-4" href="/admin/addbanner">Add Banners</a>
+  <a class="btn btn-primary mt-4" href="/admin/addbanner">Add Banners</a>
 </div>
-<div class="container-fluid" style="width:70% ;">
-  {{!-- <nav class="navbar navbar-light bg-light justify-content-between">
+<div class="row container-fluid">
 
-  <a class="navbar-brand">admin</a>
-  <a class="btn btn-primary" href="/adduser">Add New User</a>
-  <a class="btn btn-outline-success my-2 my-sm-0" href="/adminlogout">Logout</a>
+  <div class="col-12">
+    <div class="mt-5">
+      <table class="table table-striped" id="bannertable" style="width: 100%;">
+        <thead>
+          <tr>
+            <th scope="col">Banner Name</th>
+            <th scope="col">Heading</th>
+            <th scope="col">Image</th>
+            <th scope="col">Change Status</th>
+            {{!-- <th scope="col">last name</th>
 
-</nav> --}}
+            <th scope="col">place</th>
+            <th scope="col">pincode</th>
+            <th scope="col">Update / Delete</th> --}}
+          </tr>
+        </thead>
+        <tbody>
+          {{#each bannerResponse}}
+          <tr>
+            <td>{{this.product}}</td>
+            <td>{{this.heading}}</td>
+            <td> <img src="/productimages/{{this.image.[0]}}" alt="" width="50em"></td>
 
-
-<div class="row mt-5">
- <div class="col-md-10 mx-auto border shadow-lg">
-  <table class="table table-striped" id="bannertable">
-  <thead>
-    <tr>
-      <th scope="col">Banner Name</th>
-      <th scope="col">Heading</th>
-      <th scope="col">Image</th>
-      <th scope="col">Change Status</th>
-      {{!-- <th scope="col">last name</th>
-      
-      <th scope="col">place</th>
-      <th scope="col">pincode</th>
-      <th scope="col">Update / Delete</th> --}}
-    </tr>
-  </thead>
-  <tbody>
-    {{#each bannerResponse}}
-    <tr>
-      <td>{{this.product}}</td>
-      <td>{{this.heading}}</td>
-      <td> <img src="/productimages/{{this.image.[0]}}" alt="" width="50em"></td>
-
-      <td>
-        <a class="btn btn-info" role="button" href="/admin/edit-banners/{{this._id}}">Edit</a>
-        <a class="btn btn-danger" href="/admin/delete-banners/{{this._id}}" onclick="return confirm('Are you sure you want to delete banner {{this.product}} ?')">Delete</a>
-        </td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
- </div>
-</div>
+            <td>
+              <a class="btn btn-info" role="button" href="/admin/edit-banners/{{this._id}}">Edit</a>
+              <a class="btn btn-danger" href="/admin/delete-banners/{{this._id}}"
+                onclick="return confirm('Are you sure you want to delete banner {{this.product}} ?')">Delete</a>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
 
 
 
-<script>
-  $(document).ready( function () {
-    $('#bannertable').DataTable();
-} );
-</script>
+  <script>
+    $(document).ready(function () {
+      $('#bannertable').DataTable({
+        scrollX: '200px',
+        scrollCollapse: true,
+        paging: true
+      });
+    });
+  </script>
 </div>

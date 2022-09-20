@@ -16,7 +16,7 @@ const { MongoUnexpectedServerResponseError } = require('mongodb')
 const Razorpay = require('razorpay');
 const fs = require('fs');
 const dotenv = require('dotenv')
-dotenv.config({path:"./config.env"})
+dotenv.config({ path: "./config.env" })
 
 var instance = new Razorpay({
   key_id: process.env.key_id,
@@ -40,7 +40,7 @@ Helpers = {
   getallproducts: () => {
     return new Promise((resolve, reject) => {
       try {
-        productModel.find({}).populate("categoryname").sort({createdAt:-1}).lean().then((products) => {
+        productModel.find({}).populate("categoryname").sort({ createdAt: -1 }).lean().then((products) => {
           resolve(products)
         })
       } catch (error) {
@@ -250,7 +250,7 @@ Helpers = {
 
     return new Promise(async (resolve, reject) => {
       try {
-        const response = {};       
+        const response = {};
         let cart = await cartModel.findOne({ userId: userid }).populate('cartItems.product').lean()
 
         if (cart) {
@@ -587,12 +587,12 @@ Helpers = {
         if (checkoutData.paymentDetails === "COD") {
           OrderStatus = true
         }
-      
-        Helpers.getTotalAmount(userID).then(async(response) => {
+
+        Helpers.getTotalAmount(userID).then(async (response) => {
           let cartprod = response.cart.cartItems
           if (checkoutData.discountprice) {
             response.totalAmount = response.totalAmount - checkoutData.discountprice
-         
+
           }
           var date = new Date()
           var newdate = date.toISOString()
@@ -611,15 +611,15 @@ Helpers = {
             OrderStatus: true,
             productStatus: "Pending",
             newdate: newdate
-                   
+
           })
           newOrder.save()
-         let removed  = await cartModel.deleteOne({userId:userID})
+          let removed = await cartModel.deleteOne({ userId: userID })
           resolve(newOrder)
-          
+
         })
-        
-    
+
+
 
       } catch (error) {
         reject(error, "         errrrorrr")
@@ -641,6 +641,8 @@ Helpers = {
       }
     })
   },
+
+
 
   getOrderCount: (userid) => {
     return new Promise(async (resolve, reject) => {
@@ -671,7 +673,7 @@ Helpers = {
           let coupenuser = await coupenModel.findOne({
             coupenCode: coupenData.code,
             userId: { $in: [userID] },
-            
+
           })
           if (coupenuser) {
             response.status = false
@@ -699,7 +701,7 @@ Helpers = {
 
                   response.grandTotal = grandTotal
                   response.coupen = coupen
-            
+
                   resolve(response)
 
                 } else {
@@ -709,7 +711,7 @@ Helpers = {
               } else {
                 resolve(response)
               }
-            })       
+            })
           }
         } else {
           response.status = false
@@ -782,7 +784,7 @@ Helpers = {
 
   generateRazorpay: (orderid, grandTotal) => {
     let Total = parseInt(grandTotal)
-    console.log("totsal  ",Total)
+    console.log("totsal  ", Total)
     return new Promise(async (resolve, reject) => {
       try {
         var options = {

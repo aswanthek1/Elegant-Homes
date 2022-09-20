@@ -157,7 +157,8 @@ module.exports = {
         await userModel.findByIdAndUpdate({ _id: ObjectID(userid) }, {
           name: userData.name,
           email: userData.email,
-          phonenumber: userData.phonenumber
+          phonenumber: userData.phonenumber,
+          image:userData.image
         }
         )
           .then((response) => {

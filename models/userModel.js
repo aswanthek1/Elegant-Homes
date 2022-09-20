@@ -29,6 +29,9 @@ const userSchema = new mongoose.Schema({
      },
      district:{
         type:String
+     },
+     image:{
+      
      }
 
 },{timestamps:true})
