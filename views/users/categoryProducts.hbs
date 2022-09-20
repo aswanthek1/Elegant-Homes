@@ -209,10 +209,28 @@
     </section>
 
     <script>
+     function cartcount(){
+        axios({
+            method:'get',
+            url:'/cartcount'
+        }).then((e)=>{
+           
+           
+            document.getElementById('cartcount').innerHTML=e.data
+        })
+    }
+
     const addToCart = async (id) => {
         console.log(id)
         const res = await axios.post(`/addToCart/${id}`, {}).then((e) => {
-            swal("Good job!", "Item added to the cart!", "success")
+                 swal({
+
+                text: "Item added to the cart!",
+                icon: "success",
+                buttons: false,
+                timer: 1000
+            });
+         
         })
 
     }
@@ -222,9 +240,14 @@
     const wishlist = async (id) => {
 
         const res = await axios.post(`/wishlist/${id}`, {}).then((e) => {
-            swal("Good job!", "Item added to the wishlist!", "success")
+              swal({
+
+                text: "Item added to the wishlist!",
+                icon: "success",
+                buttons: false,
+                timer: 1000
+            });
 
         })
     }
 </script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
