@@ -73,9 +73,6 @@ background-color: antiquewhite;
                              <form action="/otppage" method="post">
 
 
-
-
-
                                  <div class="col-md-12 form-group p_star mt-5">
                                                             
                                     <label for="phonenumber">Login with OTP</label>
@@ -90,11 +87,11 @@ background-color: antiquewhite;
                                     </button>
                                 </div>
 
-                                {{#if userBlocked}}
+                                {{#if req.session.userBlocked}}
                                 <p>You couldn't access</p>
                                 {{/if}}
 
-                                 {{#if usernotfound}}
+                                 {{#if req.session.usernotfound}}
                                  <p>You should signup first</p>
                                     {{/if}}
                                

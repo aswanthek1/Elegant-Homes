@@ -135,53 +135,37 @@
 
 
 <script>
+
+      function cartcount(){
+        axios({
+            method:'get',
+            url:'/cartcount'
+        }).then((e)=>{
+            console.log('cart count',e.data)
+           
+            document.getElementById('cartcount').innerHTML=e.data
+        })
+    }
+
+
     const addToCart = async (id) => {
         const res = await axios.post(`/addToCart/${id}`, {}).then((e) => {
-            swal("Good job!", "Item added to cart!", "success")
+            cartcount()
+             swal({
+
+                text: "Item added to the cart!",
+                icon: "success",
+                buttons: false,
+                timer: 1000
+            });
         })
     }
 
 </script>
 
-<script>
-    const incQty = async (id) => {
-        try {
 
-
-            const res = await axios.post(`/incQty/${id}`, {}).then((e) => {
-                e.data.response
-                document.getElementById(id).value = e.data.response.quantity
-
-                window.location.reload()
-            })
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
-</script>
-
-
-
-<script>
-    const decQty = async (id) => {
-        try {
-
-            const res = await axios.post(`/decQty/${id}`, {}).then((e) => {
-                e.data.response
-                document.getElementById(id).value = e.data.response.quantity
-
-                window.location.reload()
-            })
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
-</script>
 
 
 </script>
 
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

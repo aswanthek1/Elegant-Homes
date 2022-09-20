@@ -440,17 +440,21 @@ router.post('/editPassword/:id', (req, res) => {
 
 //////////////////////////////////////////check out form//////////////////////////////////
 
-router.get('/checkout', verifylogin,usermiddleware.isblocked, (req, res, next) => {
+router.get('/checkout', verifylogin,usermiddleware.isblocked, async(req, res, next) => {
 req.session.coupen = null;
   let user = req.session.user
   let totalAmount
+  let cartCount = null;
+  if (req.session.user) {
+    cartCount = await productController.getCartCount(req.session.user._id)
+  }
   productController.getTotalAmount(req.session.user._id).then((response) => {
     totalAmount = response.totalAmount;
     userController.getAddressToCheck(req.body, req.session.user._id).then((allAddress) => {
       req.session.address = allAddress
       userController.getItemToCheck(req.session.user._id).then((checkItem) => {
         adminController.getCoupens().then((allCoupens) => {
-          res.render('users/checkout', { user, user_header: true, allAddress, checkItem, totalAmount, allCoupens })
+          res.render('users/checkout', { user, user_header: true, allAddress, checkItem, totalAmount, allCoupens,cartCount })
         })
       })
     })
@@ -492,35 +496,6 @@ router.post('/applyCoupen', (req, res, next) => {
 })
 
 //////////////////////////////place order///////////////////////////////////////////
-
-
-// router.post('/checkOut',verifylogin,(req, res, next) => {
-//   console.log("asfasdfaff")
-//   let userID = req.session.user._id
-//      let coupen = req.session.coupen
-//   let coupenDiscount = req.session.response.coupen.coupenDiscount
-//   let grandTotal = req.session.response.grandTotal
-//   productController.placeOrder(req.body, userID, grandTotal, coupenDiscount).then(async (orderDetails) => {
-//     console.log("orderDetails", orderDetails.grandTotal)
-//     req.session.orders = orderDetails
-//     if (orderDetails.paymentDetails === "COD") {
-//       if (req.session.coupen) {
-//         await productController.coupenUser(userID, coupen)
-
-//       }
-//       res.json({ orderDetails })
-//     } else {
-//       productController.generateRazorpay(orderDetails._id, orderDetails.grandTotal).then((data) => {
-//         res.json({ data })
-//       })
-//     }
-
-//   }).catch((err) => {
-//     console.log("errrrorr", err);
-//     next(err)
-//   })
-// })
-
 
 
 
@@ -627,12 +602,16 @@ router.post('/cancelOrder/:id',(req,res) => {
 ///////////////////////////////////////////track from my orders////////////////////////
 
 
-router.get('/trackOrder/:id',verifylogin,usermiddleware.isblocked,(req, res) => {
+router.get('/trackOrder/:id',verifylogin,usermiddleware.isblocked,async(req, res) => {
   let id = req.params.id
   let user = req.session.user
   let session = req.session
+  let cartCount = null;
+  if (req.session.user) {
+    cartCount = await productController.getCartCount(req.session.user._id)
+  }
   productController.getTrack(id).then((trackDetails) => {
-    res.render('users/trackOrderFromDetails', { user, trackDetails,session, user_header: true })
+    res.render('users/trackOrderFromDetails', { user, trackDetails,session, user_header: true,cartCount })
   })
 })
 
@@ -659,6 +638,18 @@ router.post('/editaddress/:id',(req,res) => {
   userController.editAddress(req.body,id).then((response) => {
     res.redirect('/checkout')
   })
+})
+
+///////////////////////////////cart count/////////////////////////////////////////
+
+
+router.get('/cartcount',async(req,res) => {
+  let cartCount = null;
+  if(req.session.user){
+    cartCount = await productController.getCartCount(req.session.user._id)
+  res.json(cartCount)
+
+  }
 })
 
 module.exports = router;

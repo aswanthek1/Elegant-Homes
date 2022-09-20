@@ -1,10 +1,14 @@
 <section>
-   <header class="main_menu home_menu" style="position:  fixed;background-color: #74CDE9 ;">
+    <header class="main_menu home_menu" style="position:  fixed;background-color: #74CDE9 ;">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="/"><h2 class="mt-3 " style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: 1300;color:white">ELEGANT HOMES</h2></a>
+                        <a class="navbar-brand" href="/">
+                            <h2 class="mt-3 "
+                                style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: 1300;color:white">
+                                ELEGANT HOMES</h2>
+                        </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -17,72 +21,115 @@
                                     <a class="nav-link" href="/" style="color:white;font-weight: 600;">HOME</a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link " href="/" id="navbarDropdown_1"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="color:white;font-weight: 600;">
+                                    <a class="nav-link " href="/" id="navbarDropdown_1" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        style="color:white;font-weight: 600;">
                                         SHOP
                                     </a>
-                                   
+
                                 </li>
                                 {{!-- <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_3"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;font-weight: 600;">
+                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        style="color:white;font-weight: 600;">
                                         PAGES
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                
+
                                         <a class="dropdown-item" href="tracking.html">Track Your Product</a>
                                         <a class="dropdown-item" href="checkout.html">product checkout</a>
                                         <a class="dropdown-item" href="cart.html">shopping cart</a>
-                                        
-                                       
+
+
                                     </div>
                                 </li> --}}
-                                 <li class="nav-item">
+                                <li class="nav-item">
                                     <a class="nav-link" href="/" style="color:white;font-weight: 600;">CONTACT</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     {{#if user}}
-                                    <a class="nav-link dropdown-toggle" href="blog.html"  id="navbarDropdown_2"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;font-weight: 600;">
+                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_2"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        style="color:white;font-weight: 600;">
                                         {{user.name}}
                                     </a>
-                                     {{else}}
-                                       <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_2"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;font-weight: 600;">
+                                    {{else}}
+                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_2"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        style="color:white;font-weight: 600;">
                                         ACCOUNT
                                     </a>
                                     {{/if}}
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
                                         {{#if user}}
-                                        <a class="dropdown-item" href="/logout" style="color:white;font-weight: 600;" onclick="return confirm('If you want to logout press OK')">LOGOUT</a>
+                                        <a class="dropdown-item" href="/logout" style="color:white;font-weight: 600;"
+                                            onclick="return confirm('If you want to logout press OK')">LOGOUT</a>
                                         <a class="dropdown-item" href="/userProfile">PROFILE</a>
                                         <a class="dropdown-item" href="/orders">MY ORDERS</a>
                                         {{else}}
                                         <a class="dropdown-item" href="/login">LOGIN</a>
-                                         <a class="dropdown-item" href="/signup">REGISTER</a>
-                                         {{/if}}                                
+                                        <a class="dropdown-item" href="/signup">REGISTER</a>
+                                        {{/if}}
                                     </div>
                                 </li>
-                                
-                               
+
+
                             </ul>
                         </div>
-                        <div class="hearer_icon d-flex">
-                            <a id="search_1" href="javascript:void(0)"><i class="ti-search" style="color:white;font-weight: 600;"></i></a>
+
+
+
+
+
+
+                        {{#if user}}
+                        <div onload="cartcount()" class="hearer_icon d-flex">
+                            <a id="search_1" href="javascript:void(0)"><i class="ti-search"
+                                    style="color:white;font-weight: 600;"></i></a>
                             <a href="/wishlist"><i class="ti-heart" style="color:white;font-weight: 600;"></i></a>
                             <div class="dropdown cart">
-                                <a  id="navbarDropdown3" role="button" href="/addToCart"
-                                     aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-cart-plus"  style="color:white;font-weight: 600;"></i><span class="badge badge-success" style="position: absolute;bottom:50%">{{cartCount}}</span>
+                                <a id="navbarDropdown3" role="button" href="/addToCart" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="fas fa-cart-plus" style="color:white;font-weight: 600;"></i>
+
+                                    <span id="cartcount" class="badge badge-success"
+                                        style="position: absolute;bottom:50%">
+                                        {{cartCount}}
+                                    </span>
                                 </a>
                                 {{!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <div class="single_product">
-    
+
                                     </div> --}}
-                                </div> 
-                                
+                                </div>
+
                             </div>
                         </div>
+                        {{else}}
+
+                        <div class="hearer_icon d-flex">
+                            <a id="search_1" href="javascript:void(0)"><i class="ti-search"
+                                    style="color:white;font-weight: 600;"></i></a>
+                            <a href="/wishlist"><i class="ti-heart" style="color:white;font-weight: 600;"></i></a>
+                            <div class="dropdown cart">
+                                <a id="navbarDropdown3" role="button" href="/addToCart" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="fas fa-cart-plus" style="color:white;font-weight: 600;"></i>
+
+                                   
+                                </a>
+                                {{!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <div class="single_product">
+
+                                    </div> --}}
+                                </div>
+
+                            </div>
+                        </div>
+                        {{/if}}
+
+
+
                     </nav>
                 </div>
             </div>
@@ -93,9 +140,9 @@
                     <input type="text" class="form-control" id="search_input" placeholder="Search Here">
                     <button type="submit" class="btn"></button>
                     <span class="ti-close" id="close_search" title="Close Search"></span>
-                
+
                 </form>
-                
+
             </div>
         </div> --}}
     </header>

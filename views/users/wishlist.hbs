@@ -149,20 +149,32 @@
 {{/if}}
 
 <script>
+
+   function cartcount(){
+        axios({
+            method:'get',
+            url:'/cartcount'
+        }).then((e)=>{
+            console.log('cart count',e.data)
+           
+            document.getElementById('cartcount').innerHTML=e.data
+        })
+    }
+
+
     const addToCart = async (id) => {
         console.log(id)
         const res = await axios.post(`/addToCart/${id}`, {}).then((e) => {
+            cartcount()
             swal({
 
                 text: "Item added to the cart!",
                 icon: "success",
-                buttons: false
+                buttons: false,
+                timer: 1000
             });
-            setTimeout(() => {
-                location.reload()
-            }, 700)
+         
         })
 
     }
 </script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
