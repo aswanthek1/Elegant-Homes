@@ -54,7 +54,7 @@ module.exports = {
   usersignup: (userdata) => {
     return new Promise(async (resolve, reject) => {
       try {
-        let user = await userModel.findOne({$or:[ {email: userdata.email} ,{phonenumber:userdata.phonenumber}]});
+        let user = await userModel.findOne({ $or: [{ email: userdata.email }, { phonenumber: userdata.phonenumber }] });
         const state = {
           userexist: false,
           user: null
@@ -158,7 +158,8 @@ module.exports = {
           name: userData.name,
           email: userData.email,
           phonenumber: userData.phonenumber,
-          image:userData.image
+          image: userData.image,
+          address: userData.address
         }
         )
           .then((response) => {
@@ -266,27 +267,27 @@ module.exports = {
     })
   },
 
-  editAddress : (data,addressid) => {
-    return new Promise(async(resolve,reject) => {
+  editAddress: (data, addressid) => {
+    return new Promise(async (resolve, reject) => {
       try {
-      let newAddress =  await addressModel.updateOne({_id:addressid},{
-        $set:{
-          address:{
-        name:data.name,
-        phonenumber:data.phonenumber,
-        email:data.email,
-        Address:data.Address,
-        pincode:data.pincode,
-        locality:data.locality,
-        landmark:data.landmark,
-        district:data.district
+        let newAddress = await addressModel.updateOne({ _id: addressid }, {
+          $set: {
+            address: {
+              name: data.name,
+              phonenumber: data.phonenumber,
+              email: data.email,
+              Address: data.Address,
+              pincode: data.pincode,
+              locality: data.locality,
+              landmark: data.landmark,
+              district: data.district
+            }
           }
-        }
-        },{ new: true }).then((response)=>{
+        }, { new: true }).then((response) => {
           resolve(response)
-        })  
+        })
       } catch (error) {
-        console.log("error",error)
+        console.log("error", error)
         reject(error)
       }
     })

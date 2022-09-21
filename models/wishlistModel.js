@@ -15,9 +15,9 @@ const wishlistSchema = new mongoose.Schema({
             type: Schema.Types.ObjectId,
             ref: "products"
         },
-        category:{
+        category: {
             type: Schema.Types.ObjectId,
-            ref:'categories'
+            ref: 'categories'
         }
     }]
 }, { timestamps: true })

@@ -64,7 +64,7 @@
                     class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
                     <div class="mr-2 mb-3 mb-lg-0">
 
-                        <img src="/productimages/{{this.product.image.[0]}}" width="150" height="150" alt="">
+                       <a href="/singleProduct/{{this.product._id}}"> <img src="/productimages/{{this.product.image.[0]}}" width="150" height="150" alt=""></a>
 
                     </div>
 
@@ -108,7 +108,7 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            Are you sure?
+                                           <h4 style="color: red;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Are you sure?</h4>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"

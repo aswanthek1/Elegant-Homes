@@ -633,7 +633,7 @@ Helpers = {
   myOrders: (userid) => {
     return new Promise(async (resolve, reject) => {
       try {
-        await orderModel.find({ userId: userid }).populate('Orderitems.product').populate('deliveryDetails').sort({createdAt:-1}).lean().then((response) => {
+        await orderModel.find({ userId: userid }).populate('Orderitems.product').populate('deliveryDetails').sort({ createdAt: -1 }).lean().then((response) => {
           resolve(response)
         })
       } catch (error) {

@@ -62,8 +62,42 @@
                                     {{/if}}
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
                                         {{#if user}}
-                                        <a class="dropdown-item" href="/logout" style="color:white;font-weight: 600;"
+
+                                        {{!-- <button type="button" class="dropdown-item btn btn-unlink" data-toggle="modal" data-target="#exampleModal" style="color: white;background-color: yellow;">
+                                            LOGOUT
+                                        </button>
+
+                                        
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                           <h4 style="color: red;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Are you sure?</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-danger"><a
+                                                    href="/logout"
+                                                    style="color: white;">Remove</a></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> --}}
+
+                                        <a class="dropdown-item" href="/logout"
+                                            style="color:white;font-weight: 600;"
                                             onclick="return confirm('If you want to logout press OK')">LOGOUT</a>
+
+
                                         <a class="dropdown-item" href="/userProfile">PROFILE</a>
                                         <a class="dropdown-item" href="/orders">MY ORDERS</a>
                                         {{else}}
@@ -116,7 +150,7 @@
                                     aria-expanded="false">
                                     <i class="fas fa-cart-plus" style="color:white;font-weight: 600;"></i>
 
-                                   
+
                                 </a>
                                 {{!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <div class="single_product">
@@ -147,6 +181,3 @@
         </div> --}}
     </header>
 </section>
-
-
-

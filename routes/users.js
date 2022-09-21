@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-const userauthentication = require('../Authentication/userauthenticaton')
 const Promise = require('promise');
 const { response } = require('express');
 const UserModel = require('../models/userModel')
@@ -21,7 +20,7 @@ const multer = require("multer");
 const storage = multer.diskStorage({
   destination: "public/userimages",
   filename: (req, file, cb) => {
-     cb(null, Date.now() + '--' + file.originalname);
+    cb(null, Date.now() + '--' + file.originalname);
   }
 })
 
@@ -117,19 +116,19 @@ router.post('/login', (req, res, next) => {
 ////////////////////////////////signup//////////////////////////////////
 
 router.get('/signup', (req, res) => {
-  
+
   if (req.session.user) {
     res.redirect('/')
   } else {
 
-   userAlreadyExist = req.session.userAlreadyExist
-    res.render('users/signupUsers',{userAlreadyExist})
+    userAlreadyExist = req.session.userAlreadyExist
+    res.render('users/signupUsers', { userAlreadyExist })
   }
 })
 
 // router.get('/signup', (req, res) => {
 //   session = req.session
-  
+
 //   res.render('users/signupUsers', { session })
 // })
 
@@ -193,7 +192,7 @@ router.post('/otpverify', (req, res) => {
   console.log(req.session.phonenumber);
   twilioController.checkOtp(req.body.otp, req.session.phonenumber).then((response) => {
     console.log(response);
-    if (response == 'approved') {      
+    if (response == 'approved') {
       req.session.loggedIn = true
       res.redirect('/')
     } else {
@@ -205,7 +204,7 @@ router.post('/otpverify', (req, res) => {
 
 /////////////////////add to cart//////////////////////////////////
 
-router.get('/addToCart', verifylogin,usermiddleware.isblocked, async (req, res, next) => {
+router.get('/addToCart', verifylogin, usermiddleware.isblocked, async (req, res, next) => {
   let cartCount = null;
   if (req.session.user) {
     cartCount = await productController.getCartCount(req.session.user._id)
@@ -216,7 +215,7 @@ router.get('/addToCart', verifylogin,usermiddleware.isblocked, async (req, res, 
     cartempty = cartItems.cartempty
     productController.getTotalAmount(req.session.user._id).then((response) => {
       totalAmount = response.totalAmount;
-      res.render('users/users-cart', { cartItems, totalAmount, cartCount,cartempty })
+      res.render('users/users-cart', { cartItems, totalAmount, cartCount, cartempty })
     })
   }).catch((err) => {
     next(err)
@@ -279,7 +278,7 @@ router.get('/delete-cart/:id', (req, res) => {
 
 /////////////////////////////////////single product////////////////////////
 
-router.get('/singleProduct/:id', verifylogin,usermiddleware.isblocked, async (req, res) => {
+router.get('/singleProduct/:id', verifylogin, usermiddleware.isblocked, async (req, res) => {
   let itemId = req.params.id
   let cartCount = null;
   if (req.session.user) {
@@ -334,7 +333,7 @@ router.get('/wishlist', verifylogin, async (req, res, next) => {
   productController.getWishItem(userID).then((whishlistitems) => {
     wishlist = response.wishlist
     wishlistEmpty = whishlistitems.wishlistEmpty
-    res.render('users/wishlist', { cartCount, user_header: true, user, whishlistitems,wishlistEmpty })
+    res.render('users/wishlist', { cartCount, user_header: true, user, whishlistitems, wishlistEmpty })
   }).catch((err) => {
     next(err)
   })
@@ -386,7 +385,7 @@ router.get('/delete-wishlistItem/:id', (req, res, next) => {
 
 
 
-router.get('/userProfile', verifylogin,usermiddleware.isblocked, (req, res, next) => {
+router.get('/userProfile', verifylogin, usermiddleware.isblocked, (req, res, next) => {
   userController.userProfile(req.session.user._id).then((userData) => {
     userController.getAddress(req.session.user._id).then((singleAddress) => {
       res.render('users/userprofile', { userData, singleAddress })
@@ -426,12 +425,12 @@ router.get('/deleteAddress/:id', (req, res, next) => {
 
 
 
-router.post('/editProfile/:id',uploads.single("image"),(req,res) => {
+router.post('/editProfile/:id', uploads.single("image"), (req, res) => {
   let id = req.params.id
   let userimage = req.file
   req.body.image = userimage
   userController.editProfile(req.body, id).then((profileDetails) => {
-   res.redirect('/userProfile')
+    res.redirect('/userProfile')
   })
 })
 
@@ -455,8 +454,8 @@ router.post('/editPassword/:id', (req, res) => {
 
 //////////////////////////////////////////check out form//////////////////////////////////
 
-router.get('/checkout', verifylogin,usermiddleware.isblocked, async(req, res, next) => {
-req.session.coupen = null;
+router.get('/checkout', verifylogin, usermiddleware.isblocked, async (req, res, next) => {
+  req.session.coupen = null;
   let user = req.session.user
   let totalAmount
   let cartCount = null;
@@ -469,7 +468,7 @@ req.session.coupen = null;
       req.session.address = allAddress
       userController.getItemToCheck(req.session.user._id).then((checkItem) => {
         adminController.getCoupens().then((allCoupens) => {
-          res.render('users/checkout', { user, user_header: true, allAddress, checkItem, totalAmount, allCoupens,cartCount })
+          res.render('users/checkout', { user, user_header: true, allAddress, checkItem, totalAmount, allCoupens, cartCount })
         })
       })
     })
@@ -515,60 +514,60 @@ router.post('/applyCoupen', (req, res, next) => {
 
 
 
-router.post('/checkOut',verifylogin,(req, res, next) => {
+router.post('/checkOut', verifylogin, (req, res, next) => {
   console.log("asfasdfaff")
   let userID = req.session.user._id
-  if(req.session.coupen){
-     let coupen = req.session.coupen
-  let coupenDiscount = req.session.response.coupen.coupenDiscount
-  let grandTotal = req.session.response.grandTotal
-  productController.placeOrder(req.body, userID, grandTotal, coupenDiscount).then(async (orderDetails) => {
-    console.log("orderDetails", orderDetails.grandTotal)
-    req.session.orders = orderDetails
-    if (orderDetails.paymentDetails === "COD") {
-      if (req.session.coupen) {
-        await productController.coupenUser(userID, coupen)
+  if (req.session.coupen) {
+    let coupen = req.session.coupen
+    let coupenDiscount = req.session.response.coupen.coupenDiscount
+    let grandTotal = req.session.response.grandTotal
+    productController.placeOrder(req.body, userID, grandTotal, coupenDiscount).then(async (orderDetails) => {
+      console.log("orderDetails", orderDetails.grandTotal)
+      req.session.orders = orderDetails
+      if (orderDetails.paymentDetails === "COD") {
+        if (req.session.coupen) {
+          await productController.coupenUser(userID, coupen)
 
+        }
+        res.json({ orderDetails })
+      } else {
+        productController.generateRazorpay(orderDetails._id, orderDetails.grandTotal).then((data) => {
+          res.json({ data })
+        })
       }
-      res.json({ orderDetails })
-    } else {
-      productController.generateRazorpay(orderDetails._id, orderDetails.grandTotal).then((data) => {
-        res.json({ data })
-      })
-    }
 
-  }).catch((err) => {
-    console.log("errrrorr", err);
-    next(err)
-  })
-}else {
+    }).catch((err) => {
+      console.log("errrrorr", err);
+      next(err)
+    })
+  } else {
 
-  productController.placeOrder(req.body, userID).then(async (orderDetails) => {
-    console.log("orderDetails", orderDetails)
-    req.session.orders = orderDetails
-    if (orderDetails.paymentDetails === "COD") {
-      if (req.session.coupen) {
-        await productController.coupenUser(userID, coupen)
+    productController.placeOrder(req.body, userID).then(async (orderDetails) => {
+      console.log("orderDetails", orderDetails)
+      req.session.orders = orderDetails
+      if (orderDetails.paymentDetails === "COD") {
+        if (req.session.coupen) {
+          await productController.coupenUser(userID, coupen)
 
+        }
+        res.json({ orderDetails })
+      } else {
+        productController.generateRazorpay(orderDetails._id, orderDetails.totalPrice).then((data) => {
+          console.log("asdfasd ", data)
+          res.json({ data })
+        })
       }
-      res.json({ orderDetails })
-    } else {
-      productController.generateRazorpay(orderDetails._id, orderDetails.totalPrice).then((data) => {
-        console.log("asdfasd ",data)
-        res.json({ data })
-      })
-    }
 
-  }).catch((err) => {
-    console.log("errrrorr", err);
-    next(err)
-  })
-}
+    }).catch((err) => {
+      console.log("errrrorr", err);
+      next(err)
+    })
+  }
 })
 /////////////////////////////////verify Payment/////////////////////////////////
 
 
-router.post('/verifyPayment',(req, res) => {
+router.post('/verifyPayment', (req, res) => {
   productController.verifyPayment(req.body).then((data) => {
     productController.changePaymentStatus(req.body.order.receipt).then((response) => {
       console.log("Payment Successfull")
@@ -584,7 +583,7 @@ router.post('/verifyPayment',(req, res) => {
 
 /////////////////////////////my orders///////////////////////////////////////////////
 
-router.get('/orders',verifylogin,usermiddleware.isblocked, async (req, res, next) => {
+router.get('/orders', verifylogin, usermiddleware.isblocked, async (req, res, next) => {
   let id = req.session.user._id
   let user = req.session.user
   let cartCount = null;
@@ -605,10 +604,10 @@ router.get('/orders',verifylogin,usermiddleware.isblocked, async (req, res, next
 /////////////////////////////////cancel orders///////////////////////////////////////////
 
 
-router.post('/cancelOrder/:id',(req,res) => {
+router.post('/cancelOrder/:id', (req, res) => {
   let id = req.params.id
-  userController.cancelOrder(id).then((response)=>{
-    res.json({response})
+  userController.cancelOrder(id).then((response) => {
+    res.json({ response })
   })
 })
 
@@ -617,7 +616,7 @@ router.post('/cancelOrder/:id',(req,res) => {
 ///////////////////////////////////////////track from my orders////////////////////////
 
 
-router.get('/trackOrder/:id',verifylogin,usermiddleware.isblocked,async(req, res) => {
+router.get('/trackOrder/:id', verifylogin, usermiddleware.isblocked, async (req, res) => {
   let id = req.params.id
   let user = req.session.user
   let session = req.session
@@ -626,14 +625,14 @@ router.get('/trackOrder/:id',verifylogin,usermiddleware.isblocked,async(req, res
     cartCount = await productController.getCartCount(req.session.user._id)
   }
   productController.getTrack(id).then((trackDetails) => {
-    res.render('users/trackOrderFromDetails', { user, trackDetails,session, user_header: true,cartCount })
+    res.render('users/trackOrderFromDetails', { user, trackDetails, session, user_header: true, cartCount })
   })
 })
 
 
 ////////////////////////////////category details/////////////////////////////////////
 
-router.get('/view-products/:id',verifylogin,usermiddleware.isblocked, async (req, res) => {
+router.get('/view-products/:id', verifylogin, usermiddleware.isblocked, async (req, res) => {
   let user = req.session.user
   let id = req.params.id
   let cartCount = null;
@@ -648,23 +647,25 @@ router.get('/view-products/:id',verifylogin,usermiddleware.isblocked, async (req
 
 //////////////////////////////////edit address///////////////////////////////////////
 
-router.post('/editaddress/:id',(req,res) => {
+router.post('/editaddress/:id', (req, res) => {
   let id = req.params.id
-  userController.editAddress(req.body,id).then((response) => {
+  userController.editAddress(req.body, id).then((response) => {
     res.redirect('/checkout')
   })
 })
 
-///////////////////////////////cart count/////////////////////////////////////////
+///////////////////////////////cart count for /////////////////////////////////////////
 
 
-router.get('/cartcount',async(req,res) => {
+router.get('/cartcount', async (req, res) => {
   let cartCount = null;
-  if(req.session.user){
+  if (req.session.user) {
     cartCount = await productController.getCartCount(req.session.user._id)
-  res.json(cartCount)
+    res.json(cartCount)
 
   }
 })
+
+
 
 module.exports = router;

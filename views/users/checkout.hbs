@@ -3,7 +3,7 @@
 
   {{!-- <form action="/checkOut" method="post"> --}}
 
-    <div class="row">
+    <div class="row mt-5">
       <div class="col-md-4 order-md-2 mb-4">
 
 
@@ -599,7 +599,6 @@
 <script>
   const applyCoupen = () => {
     let value = document.getElementById('coupenCode').value
-
     axios({
       method: 'post',
       url: '/applyCoupen',
@@ -609,7 +608,6 @@
     }).then((e) => {
       if (e.data == "") {
         swal({
-
           text: "please enter your coupon code",
           icon: "warning",
           buttons: false
@@ -617,32 +615,21 @@
         setTimeout(() => {
           location.reload()
         }, 700)
-
       } else {
-
         let grandTotal = document.getElementById('grandTotal')
         console.log("dddddddddddddddddddd", grandTotal)
-
         grandTotal.innerText = "₹ " + e.data
-
            swal({
 
                 text: "Coupon used!",
-                icon: "success",
-                
+                icon: "success",               
             });
-        
-
-
         let grandTotalInput = document.getElementById('grandTotalInput')
         console.log("dddddddddddddddddddd", grandTotalInput)
 
         grandTotalInput.value = "₹ " + e.data
-
       }
-
     })
-
   }
 
 </script>

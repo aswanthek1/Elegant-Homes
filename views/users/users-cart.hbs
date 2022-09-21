@@ -1,86 +1,88 @@
-  {{#if cartempty}}
+{{#if cartempty}}
 
 
 <style>
   @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
 
-body {
+  body {
     background-color: #eee;
     font-family: 'Calibri', sans-serif !important;
-}
+  }
 
-.mt-100{
-   margin-top:100px;
+  .mt-100 {
+    margin-top: 100px;
 
-}
+  }
 
 
-.card {
+  .card {
     margin-bottom: 30px;
     border: 0;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
     letter-spacing: .5px;
     border-radius: 8px;
-    -webkit-box-shadow: 1px 5px 24px 0 rgba(68,102,242,.05);
-    box-shadow: 1px 5px 24px 0 rgba(68,102,242,.05);
-}
+    -webkit-box-shadow: 1px 5px 24px 0 rgba(68, 102, 242, .05);
+    box-shadow: 1px 5px 24px 0 rgba(68, 102, 242, .05);
+  }
 
-.card .card-header {
+  .card .card-header {
     background-color: #fff;
     border-bottom: none;
     padding: 24px;
     border-bottom: 1px solid #f6f7fb;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-}
+  }
 
-.card-header:first-child {
+  .card-header:first-child {
     border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
-}
+  }
 
 
 
-.card .card-body {
+  .card .card-body {
     padding: 30px;
     background-color: transparent;
-}
+  }
 
-.btn-primary, .btn-primary.disabled, .btn-primary:disabled {
-    background-color: #4466f2!important;
-    border-color: #4466f2!important;
-}
+  .btn-primary,
+  .btn-primary.disabled,
+  .btn-primary:disabled {
+    background-color: #4466f2 !important;
+    border-color: #4466f2 !important;
+  }
 </style>
 
 
-  <div class="container-fluid  mt-100">
-				 <div class="row">
-				 
-					<div class="col-md-12">
-					
-							<div class="card">
-						<div class="card-header">
-						{{!-- <h5>Cart</h5> --}}
-						</div>
-						<div class="card-body cart">
-								<div class="col-sm-12 empty-cart-cls text-center">
-									<img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
-									<h3><strong>Your Cart is Empty</strong></h3>
-									{{!-- <h4>Add something to make me happy :)</h4> --}}
-									<a href="/" class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue shopping</a>
-									
-								
-								</div>
-						</div>
-				</div>
-						
-					
-					</div>
-				 
-				 </div>
-				
-				</div>
-  {{else}}
+<div class="container-fluid  mt-100">
+  <div class="row">
+
+    <div class="col-md-12">
+
+      <div class="card">
+        <div class="card-header">
+          {{!-- <h5>Cart</h5> --}}
+        </div>
+        <div class="card-body cart">
+          <div class="col-sm-12 empty-cart-cls text-center">
+            <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+            <h3><strong>Your Cart is Empty</strong></h3>
+            {{!-- <h4>Add something to make me happy :)</h4> --}}
+            <a href="/" class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue shopping</a>
+
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>
+{{else}}
 
 
 
@@ -159,7 +161,7 @@ body {
                   {{#each this.cartItems}}
                   <hr class="my-4">
 
-                  <div class="row mb-4 d-flex justify-content-between align-items-center">
+                  <div class="row mb-4 d-flex justify-content-between align-items-center" id="quantity">
                     <div class="col-md-2 col-lg-2 col-xl-2">
                       <img src="/productimages/{{this.product.image.[0]}}" class="img-fluid rounded-3"
                         alt="Cotton T-shirt">
@@ -211,9 +213,42 @@ body {
 
 
                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <a href="/delete-cart/{{this.product._id}}" role="button" class="text-muted"
+
+                      {{!-- <a href="/delete-cart/{{this.product._id}}" role="button" class="text-muted"
                         onclick="return confirm('Are you sure you want to remove {{this.product.productname}} !')"><i
-                          class="fas fa-times"></i></a>
+                          class="fas fa-times"></i></a> --}}
+
+                      <button type="button" class="btn btn-unlink "
+                        style="width: 4px;position: absolute;top: -13px;left: -9px;" data-toggle="modal"
+                        data-target="#exampleModal{{this.product._id}}">
+                        <b> x</b>
+                      </button>
+
+                              <div class="modal fade" id="exampleModal{{this.product._id}}" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4 style="color: red;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Are you sure?</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-danger"><a
+                                                    href="/delete-cart/{{this.product._id}}"
+                                                    style="color: white;">Remove</a></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                       {{!-- <button onclick="delete-cart('{{this.product._id}}')" role="button" class="text-muted"><i
                           class="fas fa-times"></i></button> --}}
                     </div>
@@ -243,30 +278,7 @@ body {
                     <h5>₹ {{totalAmount}}</h5>
                   </div>
 
-                  {{!-- <div class="d-flex justify-content-between mb-4">
-                    <h5 class="text-uppercase">Discount Price</h5>
-                    <h5>₹ </h5>
-                  </div> --}}
-
-                  {{!-- <h5 class="text-uppercase mb-3">Shipping</h5> --}}
-
-                  {{!-- <div class="mb-4 pb-2">
-                    <select class="select">
-                      <option value="1">Standard-Delivery- €5.00</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                      <option value="4">Four</option>
-                    </select>
-                  </div> --}}
-
-                  {{!-- <h5 class="text-uppercase mb-3">Give code</h5> --}}
-
-                  {{!-- <div class="mb-5">
-                    <div class="form-outline">
-                      <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-                      <label class="form-label" for="form3Examplea2">Enter your code</label>
-                    </div>
-                  </div> --}}
+             
 
                   <hr class="my-4">
 
@@ -291,6 +303,9 @@ body {
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+
+
+
   const incQty = async (id) => {
     try {
 
@@ -298,8 +313,7 @@ body {
       const res = await axios.post(`/incQty/${id}`, {}).then((e) => {
         e.data.response
         document.getElementById(id).value = e.data.response.quantity
-
-        window.location.reload()
+        location.reload()
       })
     } catch (err) {
       console.log(err)
@@ -317,7 +331,8 @@ body {
         e.data.response
         document.getElementById(id).value = e.data.response.quantity
 
-        window.location.reload()
+        location.reload()
+           
       })
     } catch (err) {
       console.log(err)
