@@ -477,7 +477,8 @@
         deliveryDetails: deliveryDetails
       }).then((e) => {
         if (paymentDetails === "COD") {
-          location.href = `/trackOrder/${e.data.orderDetails._id}`;
+         // location.href = `/trackOrder/${e.data.orderDetails._id}`;
+         location.href = `/orderSuccess`
 
         } else {
           razorpayPayment(e.data.data)
@@ -536,7 +537,7 @@
         order
       }).then((e) => {
         if (e.data.status) {
-          location.href = `/trackOrder/${order.receipt}`;
+          location.href = `/orderSuccess`;
         } else {
           alert('Payment Failed!!!')
         }

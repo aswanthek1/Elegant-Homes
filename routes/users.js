@@ -666,6 +666,17 @@ router.get('/cartcount', async (req, res) => {
   }
 })
 
+///////////////////////////////////orderSuccess///////////////////////////////////
+
+router.get('/orderSuccess',verifylogin, usermiddleware.isblocked,async(req,res) =>{
+  let user = req.session.user
+  let cartCount = null;
+  if (req.session.user) {
+    cartCount = await productController.getCartCount(req.session.user._id)
+  }
+  res.render('users/orderSuccess',{user_header:true,user,cartCount})
+})
+
 
 
 module.exports = router;

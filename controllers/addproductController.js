@@ -359,7 +359,7 @@ Helpers = {
 
       try {
         cartModel.updateOne({ userId: userid, "cartItems.product": prodid }, { $inc: { "cartItems.$.quantity": 1 } }).then(async (response) => {
-          let cart = await cartModel.findOne({ userId: userid })
+          let cart = await cartModel.findOne({ userId: userid })  
 
           console.log(cart)
           let quantity
@@ -494,9 +494,7 @@ Helpers = {
             resolve(response)
           } else {
             response.wishlistEmpty = true
-            console.log("kdkdkd")
             response.wishlist = wishlist
-            console.log(response)
             resolve(response)
           }
         }
@@ -529,7 +527,6 @@ Helpers = {
 
           if (checkItem) {
             response.duplicate = true
-            // duplicate = response.duplicate
             resolve(checkItem)
           } else {
 

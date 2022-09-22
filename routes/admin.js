@@ -37,10 +37,7 @@ const uploads = multer({
    storage
 });
 
-// filename:(req,file,cb) => {
-//    const ext = file.mimetype.split('/')[1];
-//    cb(null, `productimages/admin-${file.fieldname}-${Date.now()}.${ext}.$${ext}`)
-// }
+
 
 
 
@@ -250,7 +247,6 @@ router.get('/addproduct', verifyAdminlogin, (req, res) => {
 
 
 router.post('/addproduct', uploads.array("image", 3), (req, res) => {
-   console.log("asdfsdfsdf")
    const images = req.files
    let array = []
    array = images.map((value) => value.filename)
