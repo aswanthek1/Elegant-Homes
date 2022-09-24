@@ -607,26 +607,28 @@
         code: value
       }
     }).then((e) => {
+      console.log("fffff",e)
       if (e.data == "") {
         swal({
           text: "please enter your coupon code",
           icon: "warning",
-          buttons: false
+          buttons: false,
+          timer:1000
         });
-        setTimeout(() => {
-          location.reload()
-        }, 700)
+      
       } else {
         let grandTotal = document.getElementById('grandTotal')
-        console.log("dddddddddddddddddddd", grandTotal)
+      
         grandTotal.innerText = "₹ " + e.data
            swal({
 
                 text: "Coupon used!",
-                icon: "success",               
+                icon: "success",
+                buttons:false,
+                timer:1000               
             });
         let grandTotalInput = document.getElementById('grandTotalInput')
-        console.log("dddddddddddddddddddd", grandTotalInput)
+  
 
         grandTotalInput.value = "₹ " + e.data
       }
