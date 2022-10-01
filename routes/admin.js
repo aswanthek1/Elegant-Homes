@@ -145,17 +145,22 @@ router.get('/activate-user/:id', (req, res) => {
 
 ////////////////////////Category management//////////////////////////
 
+
+
 router.get('/category', verifyAdminlogin, (req, res) => {
+   let categoryexist = null
    categoryController.getcategory().then((category) => {
-      if (req.session.categoryexist) {
-         let categoryexist = req.session.categoryexist
+      if (req.session.exist) {
+          categoryexist = req.session.exist
          res.render('admin/category', { category, layout: 'admindashboard', admin_header: true, categoryexist })
-         req.session.categoryexist = null
+         
       } else {
          res.render('admin/category', { category, layout: 'admindashboard', admin_header: true })
       }
    })
 })
+
+
 
 
 ////////////////////////Add category data/////////////////////////////
@@ -169,13 +174,15 @@ router.post('/addcategory', uploads.array("image", 3), (req, res) => {
    categoryArray = categoryImages.map((value) => value.filename)
    req.body.image = categoryArray
    categoryController.addcategoryData(req.body).then((response) => {
-      if (response.exist) {
+      if (!response.exist) {
          console.log('exist')
-         req.session.categoryexist = true
+         req.session.exist = false
          req.session.category = response.category
          res.redirect('/admin/category')
       } else {
-         req.session.category = response.category
+         req.session.exist = true
+         // req.session.category = response.category
+         console.log(response,"resoiu")
          res.redirect('/admin/category')
       }
 
@@ -183,6 +190,7 @@ router.post('/addcategory', uploads.array("image", 3), (req, res) => {
 
 
 })
+
 
 ///////////////////////////delete category//////////////
 
@@ -192,11 +200,10 @@ router.get('/delete-category/:_id', (req, res) => {
    categoryController.checkCategory(categoryid).then((usedCategory) => {
       if (usedCategory[0] == null) {
          categoryController.deletecategory(categoryid).then((data) => {
-            res.redirect('/admin/category')
+            res.json({usedCategory})
          })
       } else {
-         categoryUsed = true
-         res.redirect('/admin/category')
+         res.json({usedCategory})
       }
    })
 

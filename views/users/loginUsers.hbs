@@ -37,28 +37,20 @@ background-color: antiquewhite;
                             <form class="row contact_form" action="/login" method="post" style="">
                                 
 
-                                {{#if user}}
-                                <p class="text-danger">Incorrect Mail Id</p>
-                                {{/if}}
-
-                              
-                                
-                                
-                                
+       
                                 <div class="col-md-12 form-group p_star mt-2">
                                     <input type="email" class="form-control" id="email" name="email"
                                         placeholder="Email"   required=""  style="background-color:aqua ; border-radius :12px;">
-                                </div>
-
-
-                                {{#if wrongpassword}}
-                                <p class="text-danger">Wrong Password</p>
+                                         {{#if user}}
+                                <p class="text-danger">Incorrect Mail Id</p>
                                 {{/if}}
-
-
-                                <div class="col-md-12 form-group p_star mt-2">
+                                </div>
+                                   <div class="col-md-12 form-group p_star mt-2">
                                     <input type="password" class="form-control" id="password" name="password" 
                                         placeholder="Password" required=""  style="background-color:aqua ; border-radius :12px;">
+                                          {{#if wrongpassword}}
+                                <p class="text-danger">Wrong Password</p>
+                                {{/if}}
                                 </div>
                                 <div class="col-md-12 form-group">
                                 
@@ -82,18 +74,19 @@ background-color: antiquewhite;
                                 </div>
                                      <div class="col-md-12 form-group">
                                 
-                                    <button type="submit" value="submit" class="btn_3 mb-5">
+                                    <button type="submit" value="submit" class="btn_3 mb-2">
                                     Get OTP
                                     </button>
+                                      {{#if numbernotfound}}
+                                 <p>You should signup first</p>
+                                 {{else}}
+                                 <p></p>
+                                    {{/if}}
                                 </div>
 
-                                {{#if req.session.userBlocked}}
-                                <p>You couldn't access</p>
-                                {{/if}}
+                            
 
-                                 {{#if req.session.usernotfound}}
-                                 <p>You should signup first</p>
-                                    {{/if}}
+                               
                                
                                 </form>
 

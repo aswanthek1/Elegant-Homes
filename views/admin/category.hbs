@@ -1,11 +1,11 @@
 {{#if categoryexist}}
 
 <div class="d-flex justify-content-center container mt-3" style="background-color: rgb(218, 97, 97); color: white;">
-  
+
   <h3>category already exist</h3>
-  
+
 </div>
-{{/if}} 
+{{/if}}
 
 
 
@@ -27,7 +27,7 @@
             <th scope="col">Image</th>
             <th scope="col">Change Status</th>
 
-           
+
           </tr>
         </thead>
         <tbody>
@@ -37,8 +37,13 @@
             <td><img src="/productimages/{{this.image.[0]}}" alt="" width="60em"></td>
             <td>
               <a class="btn btn-info" role="button" href="/admin/editcategory/{{this._id}}">Edit</a>
-              <a class="btn btn-danger" href="/admin/delete-category/{{this._id}}"
+              {{!-- <a class="btn btn-danger" href="/admin/delete-category/{{this._id}}"
                 onclick="return confirm('Are you sure you want to delete category {{this.categoryname}} ?')">Delete</a>
+              --}}
+
+              <button class="btn btn-danger" onclick="deletecategory('{{this._id}}')">Delete</button>
+
+
 
               {{!-- <a type="button" role="button" class="btn btn-primary" data-bs-toggle="modal"
                 data-bs-target="#editexampleModal">
@@ -124,7 +129,8 @@
 
 
 
-  {{!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> --}}
+  {{!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> --}}
   <script>
     $(document).ready(function () {
       $('#addcategory').submit(function (e) {
@@ -139,9 +145,9 @@
           $('#categoryname').after('<span class="error" >This field is required</span>');
         }
         //if (image.length < 1) {  
-        // e.preventDefault(); 
-        //$('#image').after('<span class="error">This field is required</span>');  
-        // }  
+        //  e.preventDefault(); 
+        // $('#image').after('<span class="error">This field is required</span>');  
+        //  }  
 
       });
 
@@ -153,3 +159,36 @@
       color: red;
     }
   </style>
+
+
+  <script>
+
+    function deletecategory(id) {
+      axios({
+        method: 'get',
+        url: `/admin/delete-category/${id}`
+      }).then((e) => {
+        if (e.data.usedCategory.length > 0) {
+          swal({
+
+            text: "Too many products are under this category !",
+            icon: "warning",
+            buttons: false,
+            timer: 2000
+          });
+        } else {
+          swal({
+            text: "Category deleted Successfully",
+            icon: "success",
+            buttons: false
+          })
+          setTimeout(function () {
+            window.location.reload();
+          }, 1000)
+        }
+      }).catch((error) => {
+        console.log("error", error)
+      })
+    }
+
+  </script>

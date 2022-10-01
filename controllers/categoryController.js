@@ -19,7 +19,7 @@ module.exports = {
             try {
                 categorydata.categoryname = categorydata.categoryname.toUpperCase()
                 console.log(categorydata, 'category')
-                let category = await categoryModel.findOne({ categoryname: categorydata.categoryname, image: categorydata.image }).lean()
+                let category = await categoryModel.findOne({ categoryname: categorydata.categoryname }).lean()
                 let response = {
                     exist: false
                 }

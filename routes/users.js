@@ -78,10 +78,13 @@ router.get('/login', (req, res) => {
   if (req.session.user) {
     res.redirect('/')
   } else {
-
-    let user = req.session.usernotfound
-    let wrongpassword = req.session.wrongpassword
-    res.render('users/loginUsers', { user, wrongpassword })
+    let user = null
+    let wrongpassword = null
+    let numbernotfound
+    numbernotfound = req.session.numbernotfound
+    user = req.session.usernotfound
+    wrongpassword = req.session.wrongpassword
+    res.render('users/loginUsers', { user, wrongpassword,numbernotfound })
   }
 })
 
@@ -177,7 +180,8 @@ router.post('/otppage', (req, res) => {
         res.redirect('/login')
       }
     } else {
-      req.session.usernotfound = true
+      req.session.numbernotfound = true
+      numbernotfound = req.session.numbernotfound
       res.redirect('/login')
     }
   })
@@ -668,13 +672,13 @@ router.get('/cartcount', async (req, res) => {
 
 ///////////////////////////////////orderSuccess///////////////////////////////////
 
-router.get('/orderSuccess',verifylogin, usermiddleware.isblocked,async(req,res) =>{
+router.get('/orderSuccess', verifylogin, usermiddleware.isblocked, async (req, res) => {
   let user = req.session.user
   let cartCount = null;
   if (req.session.user) {
     cartCount = await productController.getCartCount(req.session.user._id)
   }
-  res.render('users/orderSuccess',{user_header:true,user,cartCount})
+  res.render('users/orderSuccess', { user_header: true, user, cartCount })
 })
 
 
