@@ -5,6 +5,7 @@ const async = require('hbs/lib/async')
 const { resolve, reject } = require('promise')
 const categoryModel = require('../models/categoryModel')
 const fs = require('fs');
+const productModel = require('../models/addproductModel')
 
 
 module.exports = {
@@ -78,6 +79,18 @@ module.exports = {
         })
     },
 
+    checkCategory:(categoryid) => {
+        return new Promise((resolve,reject) =>{
+            try {
+                productModel.find({categoryname:categoryid}).then((response)=>{
+                    console.log(response,"ketrtasdfsdfg")
+                    resolve(response)
+                })
+            } catch (error) {
+                console.log(error,"error")
+            }
+        })
+    },
 
     getcategorydata: (categoryid) => {
         return new Promise(async (resolve, reject) => {

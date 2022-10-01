@@ -578,7 +578,6 @@ Helpers = {
 
 
   placeOrder: (checkoutData, userID, grandTotal, coupenDiscount) => {
-    // console.log(grandTotal, "  checkoutdata       ", checkoutData)
     return new Promise(async (resolve, reject) => {
       try {
         if (checkoutData.paymentDetails === "COD") {

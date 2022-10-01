@@ -189,8 +189,15 @@ router.post('/addcategory', uploads.array("image", 3), (req, res) => {
 
 router.get('/delete-category/:_id', (req, res) => {
    let categoryid = req.params._id
-   categoryController.deletecategory(categoryid).then((data) => {
-      res.redirect('/admin/category')
+   categoryController.checkCategory(categoryid).then((usedCategory) => {
+      if (usedCategory[0] == null) {
+         categoryController.deletecategory(categoryid).then((data) => {
+            res.redirect('/admin/category')
+         })
+      } else {
+         categoryUsed = true
+         res.redirect('/admin/category')
+      }
    })
 
 })
