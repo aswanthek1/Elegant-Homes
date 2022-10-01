@@ -629,7 +629,7 @@ router.get('/trackOrder/:id', verifylogin, usermiddleware.isblocked, async (req,
     cartCount = await productController.getCartCount(req.session.user._id)
   }
   productController.getTrack(id).then((trackDetails) => {
-    res.render('users/trackOrderFromDetails', { user, trackDetails, session, user_header: true, cartCount })
+    res.render('users/trackOrderFromDetails', { user,trackDetails, session, user_header: true, cartCount })
   })
 })
 

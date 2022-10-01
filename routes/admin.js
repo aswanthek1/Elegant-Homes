@@ -148,7 +148,6 @@ router.get('/activate-user/:id', (req, res) => {
 
 
 router.get('/category', verifyAdminlogin, (req, res) => {
-   let categoryexist = null
    categoryController.getcategory().then((category) => {
       if (req.session.exist) {
           categoryexist = req.session.exist

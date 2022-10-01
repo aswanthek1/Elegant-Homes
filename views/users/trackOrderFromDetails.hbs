@@ -273,7 +273,7 @@
                             <div class="flex-sm-col text-right col-auto">
                                 <p class="mb-1"> <b>Discount : </b></p>
                             </div>
-                            {{#if session.coupen}}
+                           {{#if session.response.grandTotal}}
 
                             <div class="flex-sm-col col-auto">
                                 <p class="mb-1">{{trackDetails.coupenDiscount}}%</p>
@@ -285,14 +285,18 @@
                             {{/if}}
                         </div>
 
-                        <div class="row justify-content-between">
+                       
+
+
+ 
+                    <div class="row justify-content-between">
 
                             <div class="flex-sm-col text-right col-auto">
                                 <p class="mb-1"><b>Total : </b></p>
                             </div>
 
 
-                            {{#if session.coupen}}
+                            {{#if session.response.grandTotal}}
 
                             <div class="flex-sm-col col-auto">
                                 <p class="mb-1">₹ {{trackDetails.grandTotal}}</p>
@@ -303,6 +307,7 @@
                             </div>
                             {{/if}}
                         </div>
+
 
 
                     </div>
