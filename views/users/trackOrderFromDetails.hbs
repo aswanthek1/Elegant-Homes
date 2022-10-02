@@ -157,7 +157,7 @@
                         <h6 class="color-1 mb-0 change-color"><button onclick="downloadInvoice()"
                                 class="btn btn-link">Receipt</button></h6>
                     </div>
-                    <div class="col-auto  "> <small>Receipt Voucher : {{trackDetails._id}}</small> </div>
+                    <div class="col-auto  "> <small>Order ID : {{trackDetails._id}}</small> </div>
                 </div>
                 {{#with trackDetails}}
                 {{#each Orderitems}}
@@ -268,8 +268,8 @@
                         </div>
 
 
-                        <div class="row justify-content-between">
-
+                        {{!-- <div class="row justify-content-between"> --}}
+{{!-- 
                             <div class="flex-sm-col text-right col-auto">
                                 <p class="mb-1"> <b>Discount : </b></p>
                             </div>
@@ -283,13 +283,49 @@
                                 <p class="mb-1">0%</p>
                             </div>
                             {{/if}}
+                        </div> --}}
+
+
+
+
+
+
+                            
+     {{#if (and trackDetails.coupenDiscount trackDetails.grandTotal)}} 
+                     <div class="row justify-content-between">                      
+
+                           <div class="flex-sm-col text-right col-auto">
+                                <p class="mb-1"> <b>Discount : </b></p>
+                            </div>
+
+                            <div class="flex-sm-col col-auto">
+                                <p class="mb-1">{{trackDetails.coupenDiscount}}%</p>
+                            </div>
+                         
                         </div>
+                           {{else}}
+
+                           <div class="row justify-content-between">                      
+
+                           <div class="flex-sm-col text-right col-auto">
+                                <p class="mb-1"> <b>Discount : </b></p>
+                            </div>
+
+                            <div class="flex-sm-col col-auto">
+                                <p class="mb-1">0 %</p>
+                            </div>
+                         
+                        </div>
+
+                        {{/if}}
+
+
 
                        
 
 
  
-                    <div class="row justify-content-between">
+                    {{!-- <div class="row justify-content-between">
 
                             <div class="flex-sm-col text-right col-auto">
                                 <p class="mb-1"><b>Total : </b></p>
@@ -306,9 +342,44 @@
                                 <p class="mb-1">₹ {{trackDetails.totalPrice}} </p>
                             </div>
                             {{/if}}
+                        </div> --}}
+
+                     
+
+                     {{#if trackDetails.grandTotal}}
+                     <div></div>
+{{else}}
+
+                          <div class="row justify-content-between">
+
+                            <div class="flex-sm-col text-right col-auto">
+                                <p class="mb-1"><b>Total : </b></p>
+                            </div>
+
+
+                            <div class="flex-sm-col col-auto">
+                                <p class="mb-1">₹  {{trackDetails.totalPrice}} </p>
+                            </div>
+                          
                         </div>
+{{/if}}
 
 
+
+                   {{#if (and trackDetails.coupenDiscount trackDetails.grandTotal)}} 
+
+                         <div class="row justify-content-between">
+
+                            <div class="flex-sm-col text-right col-auto">
+                                <p class="mb-1"><b>Grand Total : </b></p>
+                            </div>                        
+
+                            <div class="flex-sm-col col-auto">
+                                <p class="mb-1">₹  {{trackDetails.grandTotal}}</p>
+                            </div>
+                        
+                        </div>
+                        {{/if}}
 
                     </div>
 
