@@ -13,6 +13,7 @@ module.exports = {
             }).then((user)=>{
                 if(user.status){
                     res.render('admin/error403')
+                    
                 
                 }else{
                     next()
