@@ -2409,6 +2409,7 @@ ul {
 /* line 302, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_menu.scss */
 .home_menu .main-menu-item {
   justify-content: center !important;
+  /* justify-content: end; */
   background-color: #74CDE9;
 }
 

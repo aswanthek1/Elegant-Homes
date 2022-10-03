@@ -1,0 +1,63 @@
+ <footer class="footer_part">
+        <div class="container-fluid pt-5" style="background-color:#d9e1e1;position: absolute; ">
+            <div class="row justify-content-around">
+                <div class="col-sm-6 col-lg-2">
+                    <div class="single_footer_part">
+                        <h4><b> Top Categories</b></h4>
+                        <ul class="list-unstyled">
+                            {{#each category}}
+                            <li><a href="/view-products/{{this._id}}">{{this.categoryname}}</a></li>
+                            {{/each}}
+                     
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-2">
+                    <div class="single_footer_part">
+                        <h4> <b> Quick Links</b></h4>
+                        <ul class="list-unstyled">
+                            <li><a href="#category">Categories</a></li>
+                            <li><a href="#products">Products</a></li>
+                            <li><a href="">Investor Relations</a></li>
+                            <li><a href="">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4" id="contact">
+                    <div class="single_footer_part">
+                        <h4><b> Contact</b></h4>
+                        <ul class="list-unstyled">
+                            {{!-- <li><a href="">Jobs</a></li> --}}
+                            <li><a href="#">Ph : 9656834559</a></li>
+                            <li><a href="mailto:eleganthomes6488@gmail.com">Email : eleganthomes6488@gmail.com</a></li>
+                            <li><a href="#">District : Kannur</a></li>
+                            <li><a href="#">State : Kerala</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+             
+            
+
+        </div>
+        <div class="copyright_part">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                       
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="footer_icon social_icon">
+                            <ul class="list-unstyled">
+                                <li><a href="#" class="single_social_icon"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#" class="single_social_icon"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#" class="single_social_icon"><i class="fas fa-globe"></i></a></li>
+                                <li><a href="#" class="single_social_icon"><i class="fab fa-behance"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </footer>

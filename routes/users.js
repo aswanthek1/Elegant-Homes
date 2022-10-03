@@ -54,7 +54,7 @@ router.get('/', usermiddleware.isblocked, async (req, res) => {                 
         categoryController.getcategory().then((category) => {
           // console.log(category, "lalalalalalalal")
           console.log(user)
-          res.render('users/landingPage', { user, user_header: true, productList, bannerResponse, cartCount, category })
+          res.render('users/landingPage', { user, user_header: true, productList, bannerResponse, cartCount, category,user_footer:true })
         })
       })
     })
@@ -63,7 +63,7 @@ router.get('/', usermiddleware.isblocked, async (req, res) => {                 
     categoryController.getcategory().then((category) => {
       productController.getProductToList().then((productList) => {
         productController.getAllBanners().then((bannerResponse) => {
-          res.render('users/landingPage', { productList, user_header: true, bannerResponse, category })
+          res.render('users/landingPage', { productList, user_header: true, bannerResponse, category,user_footer:true })
         })
       })
     })
@@ -290,7 +290,7 @@ router.get('/singleProduct/:id', verifylogin, usermiddleware.isblocked, async (r
   }
   productController.singleProduct(itemId).then((singleproduct) => {
     let user = req.session.user
-    res.render('users/single -product', { user_header: true, cartCount, singleproduct, user })
+    res.render('users/single -product', { user_header: true, cartCount, singleproduct, user})
   })
 
 })
