@@ -2363,8 +2363,8 @@ ul {
     border-color: aliceblue;
     position: absolute;
     z-index: 24;
-    top:5px;
-    left: 0px;
+    top:2px;
+    left: 2px;
   }
   /* line 262, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_menu.scss */
   .menu_icon i {
