@@ -154,7 +154,7 @@
           
           <div class="card mt-5 ml-4" style="width: 18rem; background-color: aqua; border: 2px solid;">
             <a href="" class="btn btn" data-toggle="modal" data-target="#editmodalContactForm{{this._id}}" style="width: fit-content;margin-left: 15em;"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-            <input type="radio" name="address" id="address" checked required="" value="{{this._id}}" style="margin-right: 90%;">
+            <input type="radio" name="address" id="address"  required="" value="{{this._id}}" style="margin-right: 90%;">
             <div class="card-body">
               <h5 class="card-title">{{this.address.name}}</h5>
               <p class="card-text">{{this.address.Address}}</p>
@@ -314,7 +314,7 @@
          e.preventDefault(); 
         $('#name').after('<span class="error" >This field is required</span>');
       }
-      if (phonenumber.length < 10) {
+      if (phonenumber.length < 10 || phonenumber.length > 10) {
          e.preventDefault(); 
         $('#phonenumber').after('<span class="error">This field is required and need a valid number</span>');
       }
@@ -382,7 +382,7 @@
               <div class="modal-body mx-3">
                 <div class="md-form mb-5">
                   <i class="fas fa-user prefix grey-text"></i>
-                  <input type="text" id="editname" required="" name="name" value="{{this.address.name}}" class="form-control validate">
+                  <input type="text" id="editname" required="" maxlength="10" minlength="10" name="name" value="{{this.address.name}}" class="form-control validate">
                   <label data-error="wrong" data-success="right" for="form34">Your name</label>
                 </div>
 
@@ -496,11 +496,10 @@
 
           text: "please add your address",
           icon: "error",
-          buttons: false
+          buttons: false,
+          timer:2000
         });
-        setTimeout(() => {
-          location.reload()
-        }, 900) 
+       
         }
   }
 

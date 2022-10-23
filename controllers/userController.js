@@ -176,18 +176,13 @@ module.exports = {
   editPassword: (userid, userContent) => {
     let response = {
       correctPassword: false
-
     }
-
     return new Promise(async (resolve, reject) => {
       try {
 
-        let user = await userModel.findOne({}).lean()
-
-        let oldPassword = await bcrypt.hash(userContent.oldpassword, 10)
+        let user = await userModel.findOne({_id:userid}).lean()
         let newPassword = await bcrypt.hash(userContent.newpassword, 10)
-        let result = bcrypt.compare(oldPassword, user.password)
-
+        let result = await bcrypt.compare(userContent.oldpassword, user.password) 
         if (result) {
           userModel.updateOne({ _id: userid }, {
             $set: {

@@ -110,7 +110,9 @@
             },
             phonenumber:{
                 required:true,
-                number:true
+                number:true,
+                minlength:10,
+                maxlength:10
                
             },
             password:{
@@ -140,7 +142,9 @@
             
          },
          phonenumber:{
-            required:"You should enter a valid number"
+            required:"You should enter a valid number",
+             minlength:"Enter a valid number",
+             maxlength:"Enter a valid number"
          },
          password:{
             required:"Please enter the password",

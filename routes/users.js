@@ -390,14 +390,28 @@ router.get('/delete-wishlistItem/:id', (req, res, next) => {
 
 
 router.get('/userProfile', verifylogin, usermiddleware.isblocked, (req, res, next) => {
-  userController.userProfile(req.session.user._id).then((userData) => {
-    userController.getAddress(req.session.user._id).then((singleAddress) => {
-      res.render('users/userprofile', { userData, singleAddress })
+  if(req.session.correctPassword == false){
+    let correctPassword = req.session.correctPassword == false
+    userController.userProfile(req.session.user._id).then((userData) => {
+      userController.getAddress(req.session.user._id).then((singleAddress) => {
+        res.render('users/userprofile', { userData, singleAddress,correctPassword })
+      })
+    }).catch((err) => {
+      console.log(err, "errorr   ");
+      next(err)
     })
-  }).catch((err) => {
-    console.log(err, "errorr");
-    next(err)
-  })
+  }else{
+    userController.userProfile(req.session.user._id).then((userData) => {
+      userController.getAddress(req.session.user._id).then((singleAddress) => {
+        res.render('users/userprofile', { userData, singleAddress })
+      })
+    })
+    .catch((err) => {
+      console.log(err, "errorr");
+      next(err)
+    })
+  }
+
 })
 
 
@@ -443,18 +457,16 @@ router.post('/editProfile/:id', uploads.single("image"), (req, res) => {
 //////////////////////////////////edit password////////////////////////
 
 router.post('/editPassword/:id', (req, res) => {
-
   let id = req.params.id
   userController.editPassword(id, req.body).then((response) => {
+    console.log(response,"kkkkkkkkkkkkk")
+    req.session.correctPassword = response.correctPassword
     res.redirect('/userProfile')
   }).catch((err) => {
     console.log("errrrrooooorrrrr");
     next(err)
   })
 })
-
-
-
 
 //////////////////////////////////////////check out form//////////////////////////////////
 

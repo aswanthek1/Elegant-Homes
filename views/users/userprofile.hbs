@@ -5,6 +5,14 @@
 </style>
 
 <div class="container rounded bg-white mt-5 mb-5">
+
+{{#if correctPassword}}
+ <div class="alert alert-warning alert-dismissible" style="background-color: orange;">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Warning!</strong><b>Previous Password Must be correct</b>
+  </div>
+{{/if}}
+
   <div class="row">
     <div class="col-md-3 border-right">
       <div class="d-flex flex-column align-items-center text-center p-3 py-5">
@@ -272,7 +280,7 @@
         e.preventDefault();
         $('#name').after('<span class="error" >This field is required</span>');
       }
-      if (phonenumber.length < 10) {
+      if (phonenumber.length < 10 || phonenumber.length > 10) {
         e.preventDefault();
         $('#phonenumber').after('<span class="error">This field is required and need a valid number</span>');
       }
@@ -422,13 +430,13 @@
         </div>
         <div class="modal-footer d-flex justify-content-center">
           <button class="btn btn-primary" type="submit">Save</button>
+         {{!-- <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button> --}}
+
         </div>
       </div>
     </form>
   </div>
 </div>
-
-
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -444,7 +452,7 @@
         e.preventDefault();
         $('#oldpassword').after('<span class="error" >This field is required</span>');
       }
-      if (newpassword.length < 6) {
+      if (newpassword.length < 5) {
         e.preventDefault();
         $('#newpassword').after('<span class="error">This field is required and need minimum 6 elements</span>');
       }

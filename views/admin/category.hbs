@@ -1,8 +1,9 @@
 {{#if categoryexist}}
 
-<div class="d-flex justify-content-center container mt-3" style="background-color: rgb(218, 97, 97); color: white;">
-
-  <h3>category already exist</h3>
+   <div class="alert alert-warning alert-dismissible" style="background-color: orange;">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Warning!</strong> Category Already exist.
+  </div>
 
 </div>
 {{/if}}
@@ -144,10 +145,10 @@
           e.preventDefault();
           $('#categoryname').after('<span class="error" >This field is required</span>');
         }
-        //if (image.length < 1) {  
-        //  e.preventDefault(); 
-        // $('#image').after('<span class="error">This field is required</span>');  
-        //  }  
+        (image.length < 1) {  
+         e.preventDefault(); 
+        $('#image').after('<span class="error">This field is required</span>');  
+        }  
 
       });
 
